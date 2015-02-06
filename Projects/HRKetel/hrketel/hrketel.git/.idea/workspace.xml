@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidConfiguredLogFilters">
+    <filters>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="Boat:" />
+        <option name="name" value="Unnamed-0" />
+        <option name="packageNamePattern" value="" />
+        <option name="pid" value="" />
+      </filter>
+    </filters>
+  </component>
+  <component name="AndroidLayoutPreviewToolWindow">
+    <option name="state">
+      <GlobalState />
+    </option>
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="83bcd0b6-e8d6-409d-8160-a0c8bc8b41a9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/ControlManually.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/minor/Autonomous_Boat/BuildConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/minor/Autonomous_Boat/Manifest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/minor/Autonomous_Boat/R.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/ControlManually.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/arbitrators/Agent.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/arbitrators/Agent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/AdjustVelocity.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/MapCourse.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/MapCourse.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/Move.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/Move.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/CommReader.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommReader.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/CommReaderCallback.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommReaderCallback.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/CommWriter.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommWriter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/CommWriterOutput.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommWriterOutput.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/Communicator.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/communicators/Communicator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/Header_t.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/communicators/Header_t.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/enums/Sora_t.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/enums/Sora_t.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Actuator.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Actuator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Arbitrator.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Arbitrator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Behaviour.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Behaviour.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Sensor.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Sensor.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Sora.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Sora.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/AgentActuatorManager.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentActuatorManager.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/AgentLocationManager.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentLocationManager.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/AgentSensorManager.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentSensorManager.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/Motor.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/modules/Motor.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/sensors/CompassListener.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/sensors/CompassListener.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/sensors/GPSListener.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/sensors/GPSListener.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/server/Server.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/server/Server.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/server/ServerCommunicationCallback.java" afterPath="$PROJECT_DIR$/src/com/minor/HRketel/server/ServerCommunicationCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+    <ignored path="HRketel.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/MapCourse.java" line="57" class="com.minor.HRketel.behaviours.MapCourse" package="com.minor.HRketel.behaviours">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="HRketel" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="0" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="2355">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdjustVelocity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1950">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Agent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/arbitrators/Agent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="78" column="33" selection-start="2405" selection-end="2405" vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1500">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ControlManually.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/ControlManually.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="36" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3015">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Motor.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/Motor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="24" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0" vertical-offset="682" max-vertical-offset="1920">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActivityThread.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/android/app/ActivityThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4749" column="0" selection-start="197068" selection-end="197068" vertical-scroll-proportion="0.0" vertical-offset="71235" max-vertical-offset="71325">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AgentLocationManager.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentLocationManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="49" column="55" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.46391752" vertical-offset="360" max-vertical-offset="1185">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapCourse.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/MapCourse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="118" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.0" vertical-offset="485" max-vertical-offset="1785">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/enum/Sora_t" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/enums/Sora_t.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/CommReader.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Sora.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Actuator.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Sensor.java" />
+        <option value="$PROJECT_DIR$/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators/CommWriter.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/AgentActuatorManager.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/sensors/CompassListener.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/ClientServerCommunicationCallback.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/FailSafe.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/AgentServerManager.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/sensors/GPSListener.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/interfaces/Behaviour.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/server/ServerCommunicationCallback.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/AgentLocationManager.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/arbitrators/Agent.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/Move.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/MapCourse.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/AdjustVelocity.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/modules/Motor.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/behaviours/ControlManually.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/Move.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/modules/Motor.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/behaviours/ControlManually.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/arbitrators/Agent.java" />
+        <option value="$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentLocationManager.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="behaviours" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arbitrators" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HRketel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.lastSelected" value="vcs.Subversion" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="FullScreen" value="true" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/ioios/App-IOIO0330/IOIOLibBT" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="SearchEverywhereHistory" value="boo" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/com/minor/Autonomous_Boat/communicators" />
+      <recent name="$PROJECT_DIR$/res" />
+      <recent name="$PROJECT_DIR$/src/com/minor/Autonomous_Boat" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android Application.HRketel">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="false" name="HRketel" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="HRketel" />
+      <option name="ACTIVITY_CLASS" value="com.minor.HRketel.MainActivity" />
+      <option name="MODE" value="specific_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Android Application.HRketel" />
+    </list>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="false">$USER_HOME$/.subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="83bcd0b6-e8d6-409d-8160-a0c8bc8b41a9" name="Default" comment="" />
+      <created>1391428492103</created>
+      <updated>1391428492103</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1280" height="800" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.49960285" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3196481" sideWeight="0.49960285" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.62876713" sideWeight="0.50039715" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.49960285" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2780822" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2668785" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48973608" sideWeight="0.49960285" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962668" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3260274" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25178713" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962668" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32739726" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28630137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="34" selection-start="174" selection-end="174" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2445">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="48" selection-start="1628" selection-end="1628" vertical-scroll-proportion="0.0" vertical-offset="447" max-vertical-offset="1995">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="34" selection-start="174" selection-end="174" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2445">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.0" vertical-offset="447" max-vertical-offset="1995">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="131" column="0" selection-start="4030" selection-end="4030" vertical-scroll-proportion="0.0" vertical-offset="1965" max-vertical-offset="1980">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="49" selection-start="1585" selection-end="1585" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1650" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="54" selection-start="2022" selection-end="2022" vertical-scroll-proportion="0.0" vertical-offset="847" max-vertical-offset="1905" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentActuatorManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="21" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="435" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/Motor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="16" selection-start="2025" selection-end="2025" vertical-scroll-proportion="0.0" vertical-offset="1113" max-vertical-offset="2175" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="131" column="0" selection-start="4030" selection-end="4030" vertical-scroll-proportion="0.0" vertical-offset="1965" max-vertical-offset="2475" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Arbitrator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommReaderCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="17" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Actuator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="39" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Sensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/enums/Sora_t.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="23" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLib/src/ioio/lib/impl/IOIOProtocol.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="27" selection-start="1809" selection-end="1809" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12600" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/android/os/Looper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="0" selection-start="4739" selection-end="4739" vertical-scroll-proportion="0.0" vertical-offset="1738" max-vertical-offset="3975" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="51" selection-start="924" selection-end="924" vertical-scroll-proportion="-3.5576923" vertical-offset="190" max-vertical-offset="990" />
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="855" column="0" selection-start="28522" selection-end="28522" vertical-scroll-proportion="0.0" vertical-offset="12039" max-vertical-offset="18900" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="46" selection-start="2091" selection-end="2091" vertical-scroll-proportion="0.0" vertical-offset="1046" max-vertical-offset="1635" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Sora.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="17" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/android/location/LocationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1130" column="0" selection-start="51690" selection-end="51690" vertical-scroll-proportion="0.0" vertical-offset="16378" max-vertical-offset="23340" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="473" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HRketel.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentActuatorManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="21" selection-start="164" selection-end="164" vertical-scroll-proportion="0.21604939" vertical-offset="0" max-vertical-offset="486" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12570" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/communicators/CommReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="168" selection-end="168" vertical-scroll-proportion="0.14957266" vertical-offset="0" max-vertical-offset="2400" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentSensorManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="23" selection-start="1298" selection-end="1298" vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="990" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/sensors/GPSListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1410" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/sensors/CompassListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="17" selection-start="2152" selection-end="2152" vertical-scroll-proportion="1.4864864" vertical-offset="0" max-vertical-offset="2085" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/interfaces/Behaviour.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="16" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.83505154" vertical-offset="228" max-vertical-offset="930" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="0" selection-start="2634" selection-end="2634" vertical-scroll-proportion="0.0" vertical-offset="1179" max-vertical-offset="1620" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/server/ServerCommunicationCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLibBT/src/ioio/lib/android/bluetooth/BluetoothIOIOConnectionBootstrap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="35" selection-start="1615" selection-end="1615" vertical-scroll-proportion="0.18691589" vertical-offset="0" max-vertical-offset="1125" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLibBT/src/ioio/lib/android/bluetooth/BluetoothIOIOConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="19" selection-start="1599" selection-end="1599" vertical-scroll-proportion="0.18691589" vertical-offset="0" max-vertical-offset="1815" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="42" selection-start="259" selection-end="259" vertical-scroll-proportion="-2.8846154" vertical-offset="0" max-vertical-offset="450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="0" selection-start="5490" selection-end="5490" vertical-scroll-proportion="0.3030303" vertical-offset="1495" max-vertical-offset="6270">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/java/lang/Number.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.3030303" vertical-offset="190" max-vertical-offset="1140" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/java/lang/Double.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="389" column="0" selection-start="12648" selection-end="12648" vertical-scroll-proportion="0.3030303" vertical-offset="5530" max-vertical-offset="7125" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/org/json/JSONObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="0" selection-start="4549" selection-end="4549" vertical-scroll-proportion="0.3030303" vertical-offset="1105" max-vertical-offset="10635" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="0" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.5435435" vertical-offset="478" max-vertical-offset="1785">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/android/location/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="495" column="0" selection-start="17804" selection-end="17804" vertical-scroll-proportion="0.072649576" vertical-offset="6924" max-vertical-offset="10545">
+          <folding>
+            <element signature="e#17838#17839#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/com/android/internal/os/ZygoteInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11700" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-16/android/app/ActivityThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4749" column="0" selection-start="197068" selection-end="197068" vertical-scroll-proportion="0.0" vertical-offset="68878" max-vertical-offset="69450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="0" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="2355">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/Motor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="24" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0" vertical-offset="682" max-vertical-offset="1920">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/AdjustVelocity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1950">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/ControlManually.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="36" selection-start="933" selection-end="933" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3015">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/arbitrators/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="33" selection-start="2405" selection-end="2405" vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1500">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/behaviours/MapCourse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="118" selection-start="1109" selection-end="1109" vertical-scroll-proportion="0.0" vertical-offset="485" max-vertical-offset="1785">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/minor/HRketel/modules/AgentLocationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="55" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.46391752" vertical-offset="360" max-vertical-offset="1185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>HRketel</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+

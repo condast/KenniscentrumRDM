@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="http://openlayers.org/en/v3.1.1/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="http://openlayers.org/en/v3.1.1/build/ol.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      
+    var map;
+    
+    function createMap( longtitude, latitude ){
+    	var strlong = 'EPSG:'.concat( longtitude.toString());
+    	var strlat = 'EPSG:'.concat( latitude.toString());
+     	map = new ol.Map({
+        	target: 'map',
+        	layers: [
+          	new ol.layer.Tile({
+            	source: new ol.source.MapQuest({layer: 'sat'})
+          	})
+        	],
+        	view: new ol.View({
+        		center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', strlat ),
+        		zoom: 4
+        	})
+      	});
+       	alert( strlat + "*" + strlong);
+   }
+    </script>
+    <title>Aquabots</title>
+  </head>
+  <body>
+    <h2>IJssel</h2>
+    <div id="map" class="map"></div>
+    <script>createMap(4326, 3857);</script>
+  </body>
+</html>

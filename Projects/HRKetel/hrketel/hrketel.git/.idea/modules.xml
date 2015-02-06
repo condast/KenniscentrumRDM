@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HRketel.iml" filepath="$PROJECT_DIR$/HRketel.iml" />
+      <module fileurl="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLib/IOIOLib.iml" filepath="$USER_HOME$/ioios/App-IOIO0330/IOIOLib/IOIOLib.iml" />
+      <module fileurl="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLibAccessory/IOIOLibAccessory.iml" filepath="$USER_HOME$/ioios/App-IOIO0330/IOIOLibAccessory/IOIOLibAccessory.iml" />
+      <module fileurl="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLibBT/IOIOLibBT.iml" filepath="$USER_HOME$/ioios/App-IOIO0330/IOIOLibBT/IOIOLibBT.iml" />
+      <module fileurl="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLib/target/android/android.iml" filepath="$USER_HOME$/ioios/App-IOIO0330/IOIOLib/target/android/android.iml" />
+      <module fileurl="file://$USER_HOME$/ioios/App-IOIO0330/IOIOLib/target/pc/pc.iml" filepath="$USER_HOME$/ioios/App-IOIO0330/IOIOLib/target/pc/pc.iml" />
+    </modules>
+  </component>
+</project>
+
