@@ -27,9 +27,8 @@ public abstract class AbstractImages {
 		this.initialise();
 	}
 	
-	protected ImageData setImage( String identifier, String name ){
+	protected ImageData setImage( String name ){
 		ImageData data = new ImageData();
-		data.identifier = identifier;
 		data.location = path + name;
 		data.descriptor = getImageDescriptor( data.location ); 
 		data.image = data.descriptor.createImage();
@@ -44,11 +43,12 @@ public abstract class AbstractImages {
 	 */
 	public Image getImageFromName( String identifier ){
 		for( ImageData data: imageMap ){
-			if( data.identifier.equals( identifier )){
+			if( data.location.endsWith( identifier )){
 				return data.image;
 			}
 		}
-		return null;
+		ImageData data = setImage( identifier );
+		return ( data == null )? null: data.image;
 	}
 	
 	protected abstract void initialise();
@@ -66,7 +66,7 @@ public abstract class AbstractImages {
 	 */
 	protected URL getImageURL( String location ){
 		URL url = null;
-		if(( this.bundleName == null ) ||( this.bundleName.length() == 0)){
+		if(( this.bundleName == null ) || ( this.bundleName.length() == 0  )){
 			if( !location.startsWith("/"))
 				location = "/" + location;
 			url = this.getClass().getResource( location );
@@ -90,7 +90,6 @@ public abstract class AbstractImages {
     }
 
     protected class ImageData{	
-    	String identifier;
     	String location;
     	ImageDescriptor descriptor;
     	Image image;

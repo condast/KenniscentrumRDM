@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Control;
 public class ImageResources extends AbstractImages{
 
 	public static final String S_BUNDLE_ID = "org.rdm.aquabots.dashboard";
-	public static final String S_RESOURCES = "/resources/";
+	public static final String S_RESOURCES = "resources/";
 	public static final String S_DOUBLE_ARROW = "double-arrow-";
 
 	public enum Images{
@@ -25,6 +25,7 @@ public class ImageResources extends AbstractImages{
 		
 		public static String getFile( Images image ){
 			StringBuffer buffer = new StringBuffer();
+			buffer.append( S_RESOURCES );
 			buffer.append( S_DOUBLE_ARROW );
 			switch( image ){		
 			case UP:
@@ -52,7 +53,7 @@ public class ImageResources extends AbstractImages{
 	private static Logger logger = Logger.getLogger( ImageResources.class.getName() );
 	
 	private ImageResources() {
-		super( S_RESOURCES, S_BUNDLE_ID );
+		super( S_RESOURCES, S_BUNDLE_ID);
 	}
 
 	public static ImageResources getInstance() {
@@ -68,11 +69,11 @@ public class ImageResources extends AbstractImages{
 	}
 
 	public Image getImage( Images image ){
-		return super.getImageFromName( image.name().toLowerCase() );
+		return super.getImageFromName( image.name() );
 	}
 
 	protected void setImage( Images image ){
-		setImage( image.name(), Images.getFile(image));
+		super.setImage( Images.getFile(image));
 	}
 	
 	/**
@@ -110,7 +111,7 @@ public class ImageResources extends AbstractImages{
 	 * @return
 	 */
 	public static String getImageString( Images image ){
-		return RWT.getResourceManager().getLocation( image.name().toLowerCase() ); 
+		return Images.getFile(image); 
 	}
 	
 	/**
@@ -120,11 +121,11 @@ public class ImageResources extends AbstractImages{
 	 */
 	public static void setImage( Control widget, Images image ){
 		widget.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
-		registerImage( image );
+		//registerImage( image );
 		if( widget instanceof Button ){
 		  Button button = (Button) widget;
 		  String src = getImageString( image );
-		  button.setText( "Hello <img width='24' height='24' src='" + src + "'/>" );
+		  button.setText( "<img width='24' height='24' src='" + src + "'/>" );
 		}
 	}
 }

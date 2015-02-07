@@ -7,6 +7,10 @@
             alias="/aquabots"
             base-name="/web">
       </resource>
+      <resource
+            alias="/resources"
+            base-name="/resources">
+      </resource>
    </extension>
 
 </plugin>
