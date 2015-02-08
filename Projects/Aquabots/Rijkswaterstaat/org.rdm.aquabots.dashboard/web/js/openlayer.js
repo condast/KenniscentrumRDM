@@ -1,7 +1,6 @@
 var layer = new ol.layer.Tile({source: new ol.source.OSM()});
 
-var view = new ol.View({
-	  //projection: 'EPSG:4326',	
+var view = new ol.View({	
 	  center: [4000, 3000],
    	  zoom: 4
    	}
@@ -54,39 +53,59 @@ var modify = new ol.interaction.Modify({
 map.addInteraction(modify);
 
 var draw; // global so we can remove it later
-function addInteraction() {
-	  draw = new ol.interaction.Draw({
-		  features: featureOverlay.getFeatures(),
-		  type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
-	    }
-      );
-      map.addInteraction(draw);
+var pointDraw;
+var pointer = 0;
+
+function initInteraction() {
+	draw = addInteraction( 'LineString' );
+	draw.on('drawend', function(e) {
+		sendCoordinates( 'drawend', e );
+	});
+	draw.on('drawstart', function(e) {
+		sendCoordinates( 'drawstart', e );
+	});
+
+	pointDraw = addInteraction('Point');
+	pointDraw.on('drawend', function(e) {
+		sendCoordinates( 'drawend', e );
+	});
 }
+
+/**
+ * Send the given coordinates to the servlet
+ * @param coordinates
+ */
+function sendCoordinates( tp, e ){
+	var geometry = e.feature.getGeometry();
+	var coords = geometry.getCoordinates();  
+	var str = ol.proj.transform( coords, 'EPSG:3857', 'EPSG:4326');
+	$.get("MapServlet", { type: tp, style: geometry.getType(), coordinates: escape( str )}).done( function(data) {
+		  alert(data);
+	});
+	console.log( tp, str );	
+}
+
 function addInteraction( tp) {
-	  draw = new ol.interaction.Draw({
-		  features: featureOverlay.getFeatures(),
-		  type: tp/** @type {ol.geom.GeometryType} */
+	var drw = new ol.interaction.Draw({
+		features: featureOverlay.getFeatures(),
+		type: (tp)
 	    }
     );
-    map.addInteraction(draw);
+    map.addInteraction(drw);
+    return drw;
 }
 
 /**
 * Let user change the geometry type.
 */
 function typeSelect( type ){
-  alert('hoi');
-	try{
+ try{
 	map.removeInteraction(draw);
-	addInteraction();
+	draw = addInteraction( type );
   }
   catch( err ){
 	  alert( err );
   }
-}
-
-function typeSelect1(){
-	alert('hoi')';'
 }
 
 function jump( lon, lat, zoom) {
@@ -111,4 +130,4 @@ function zoomout(){
     view.setZoom( view.getZoom() + 1);
 }
 
-addInteraction();
+initInteraction();

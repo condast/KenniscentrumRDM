@@ -2,15 +2,15 @@ package org.rdm.aquabots.dashboard.model;
 
 public class GeoView {
 
-	public static final double DEF_LONGTITUDE = 6.15388;
-	public static final double DEF_LATITUDE = 52.24967;
+	public static final float DEF_LONGTITUDE = 6.15388f;
+	public static final float DEF_LATITUDE = 52.24967f;
 	public static final int DEF_ZOOM = 16;
 	
 	public static final float DEF_HORIZONTAL = 0.005f;
 	public static final float DEF_VERTICAL = 0.02f;
 	
-	private double longtitude;
-	private double latitude;
+	private float longtitude;
+	private float latitude;
 	private int zoom;
 	
 	
@@ -21,16 +21,16 @@ public class GeoView {
 		this.latitude = DEF_LATITUDE;
 		
 	}
-	public double getLongtitude() {
+	public float getLongtitude() {
 		return longtitude;
 	}
-	public void setLongtitude( double longtitude) {
+	public void setLongtitude( float longtitude) {
 		this.longtitude = longtitude;
 	}
 	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude( double latitude) {
+	public void setLatitude( float latitude) {
 		this.latitude = latitude;
 	}
 	public int getZoom() {

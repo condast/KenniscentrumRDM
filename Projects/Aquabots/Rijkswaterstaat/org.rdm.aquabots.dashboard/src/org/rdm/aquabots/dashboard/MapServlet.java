@@ -1,0 +1,54 @@
+package org.rdm.aquabots.dashboard;
+
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.rdm.aquabots.dashboard.model.TrajectoryModel;
+import org.rdm.aquabots.dashboard.model.TrajectoryModel.Append;
+import org.rdm.aquabots.dashboard.model.TrajectoryModel.Parameters;
+import org.rdm.aquabots.dashboard.model.TrajectoryModel.Styles;
+import org.rdm.aquabots.dashboard.model.WayPoint;
+import org.rdm.aquabots.dashboard.utils.StringStyler;
+
+public class MapServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	private Logger logger = Logger.getLogger( this.getClass().getName() );
+	
+	private TrajectoryModel model = TrajectoryModel.getInstance();
+	
+	@Override
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		Enumeration<String> attrs = req.getParameterNames();
+		logger.info("DO GET " );
+		Map<String, String> map = new HashMap<String, String>();
+		while( attrs.hasMoreElements()){
+			String attr = attrs.nextElement();
+			map.put( attr, URLDecoder.decode( req.getParameter(attr), "UTF-8"));
+		}
+		for( WayPoint waypoint: model.createWayPoints( map, Append.LAST )){
+			String str = map.get( Parameters.STYLE.toString().toLowerCase());
+			if( TrajectoryModel.Styles.POINT.equals( Styles.valueOf( StringStyler.styleToEnum( str )) ))
+				model.addWayPoint(waypoint);
+		}
+		super.doGet(req, resp);
+	}
+
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
+	}
+
+}

@@ -12,5 +12,12 @@
             base-name="/resources">
       </resource>
    </extension>
+   <extension
+         point="org.eclipse.equinox.http.registry.servlets">
+      <servlet
+            alias="/aquabots/MapServlet"
+            class="org.rdm.aquabots.dashboard.MapServlet">
+      </servlet>
+   </extension>
 
 </plugin>

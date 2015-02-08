@@ -3,42 +3,38 @@ package org.rdm.aquabots.dashboard.model;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class TrajectoryView {
-	public enum Types{
-		POINT,
-		LINE_STRING,
-		POLYGON;
+	private TrajectoryModel.Styles type = TrajectoryModel.Styles.POINT;
 
-		public static String[] getTypes(){
-			String[] strarray = new String[3];
-			int index = 0;
-			for( Types type: values() ){
-				strarray[index++] = type.toString();
-			}
-			return strarray;
-		}
-
-		@Override
-		public String toString() {
-			return StringStyler.prettyString( super.toString());
-		}
-	}
+	private GeoView geoView;
 	
-	private Types type = Types.POINT;
+	
+	public TrajectoryView( GeoView geoView) {
+		super();
+		this.geoView = geoView;
+	}
 
-	public Types getType() {
+	public TrajectoryModel.Styles getType() {
 		return type;
 	}
 
-	public void setType(Types type) {
+	public void setType(TrajectoryModel.Styles type) {
 		this.type = type;
 	}
 
 	public void setType( String type) {
-		this.type = Types.valueOf( StringStyler.styleToEnum( type ));
+		this.type = TrajectoryModel.Styles.valueOf( StringStyler.styleToEnum( type ));
 	}
 
 	public String setTrajectory(){
-		return "typeSelect1();";//('Point');";//" + this.type.toString() + ");";
+		return "typeSelect('" + this.type.toString() + "');";
 	}
-	
+
+	private int x = 1, y = 1;
+	public String addPoint(){
+		float gx = this.geoView.getLongtitude() + x/100;
+		float gy = this.geoView.getLongtitude() + y/100;
+		x++; y++;
+		return "addPoint(" + gx + "," + gy + ");";
+	}
+
 }

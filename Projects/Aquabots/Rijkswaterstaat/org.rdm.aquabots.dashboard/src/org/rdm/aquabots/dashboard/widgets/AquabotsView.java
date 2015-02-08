@@ -2,6 +2,8 @@ package org.rdm.aquabots.dashboard.widgets;
 
 import java.util.logging.Logger;
 
+import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.widgets.BrowserCallback;
 import org.eclipse.rap.rwt.widgets.BrowserUtil;
 import org.eclipse.swt.widgets.Composite;
@@ -21,11 +23,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.rdm.aquabots.dashboard.model.GeoView;
+import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
+import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
+import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 import org.rdm.aquabots.dashboard.model.TrajectoryView;
+import org.rdm.aquabots.dashboard.model.WayPoint;
 import org.rdm.aquabots.dashboard.utils.ImageResources;
 import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.List;
 
 public class AquabotsView extends Composite {
 
@@ -37,8 +44,29 @@ public class AquabotsView extends Composite {
 	private DigitsSpinner spinner;
 	private DigitsSpinner spinner_1;
 	
+	private List list;
+	
 	private GeoView geo = new GeoView();
-	private TrajectoryView trajectory = new TrajectoryView();
+	private TrajectoryView trajectory = new TrajectoryView( geo );
+	private TrajectoryModel model = TrajectoryModel.getInstance();
+	
+	private ITrajectoryListener listener = new ITrajectoryListener(){
+
+		@Override
+		public void notifyTrajectoryChanged(TrajectoryEvent event) {
+			if( list == null )
+				return;
+			Display.getCurrent().asyncExec( new Runnable(){
+
+				@Override
+				public void run() {
+					WayPoint waypoint = event.getWayPoint();
+					list.add( waypoint.getEvent() + ": " + waypoint.toString() + "-" + waypoint.getSpeed());
+				}
+				
+			});			
+		}
+	};
 	
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
 	
@@ -48,12 +76,12 @@ public class AquabotsView extends Composite {
 
 		@Override
 		public void evaluationSucceeded(Object result) {
-			System.out.println("succeeded: " + result);	
+			logger.info("succeeded: " + result);	
 		}
 
 		@Override
 		public void evaluationFailed(Exception exception) {
-			System.out.println("failed: " + exception);	
+			logger.warning( "failed: " + exception);	
 		}   	
     };
 
@@ -104,7 +132,7 @@ public class AquabotsView extends Composite {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
-				geo.setLongtitude( spinner.getSelection());
+				geo.setLongtitude( (float) spinner.getSelection());
 				BrowserUtil.evaluate(browser, geo.jump(), bcb );   
 			}
 		});
@@ -121,7 +149,7 @@ public class AquabotsView extends Composite {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
-				geo.setLatitude( spinner_1.getSelection());
+				geo.setLatitude( (float) spinner_1.getSelection());
 				BrowserUtil.evaluate(browser, geo.jump(), bcb );   
 			}
 		});
@@ -133,7 +161,7 @@ public class AquabotsView extends Composite {
 		composite_1.setLayout(new GridLayout(3, false));
 		GridData gd_composite_1 = new GridData(SWT.FILL, SWT.FILL, false, false, 2, 1);
 		gd_composite_1.widthHint = 113;
-		gd_composite_1.heightHint = 150;
+		gd_composite_1.heightHint = 107;
 		composite_1.setLayoutData(gd_composite_1);
 		new Label(composite_1, SWT.NONE);
 
@@ -193,28 +221,38 @@ public class AquabotsView extends Composite {
 		
 		Group grpDraw = new Group(composite, SWT.NONE);
 		grpDraw.setText("Draw");
-		grpDraw.setLayout(new GridLayout(2, false));
+		grpDraw.setLayout(new GridLayout(3, false));
 		grpDraw.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
 		
-		Label lblNewLabel_2 = new Label(grpDraw, SWT.NONE);
-		lblNewLabel_2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel_2.setText("Type");
+		list = new List(grpDraw, SWT.BORDER | SWT.MULTI);
+		GridData gd_list = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+		gd_list.widthHint = 89;
+		list.setLayoutData(gd_list);
+		new Label(grpDraw, SWT.NONE);
 		
-		Combo combo = new Combo(grpDraw, SWT.READ_ONLY);
-		combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		combo.setItems( TrajectoryView.Types.getTypes());
-		combo.select(0);
-		combo.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
+		Composite composite_3 = new Composite(grpDraw, SWT.NONE);
+		GridData gd_composite_3 = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+		gd_composite_3.heightHint = 43;
+		gd_composite_3.widthHint = 116;
+		composite_3.setLayoutData(gd_composite_3);
+		composite_3.setLayout(new GridLayout(1, false));
+		
+		Button btnStopoverride = new Button(composite_3, SWT.NONE);
+		GridData gd_btnStopoverride = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+		gd_btnStopoverride.widthHint = 103;
+		btnStopoverride.setLayoutData(gd_btnStopoverride);
+		btnStopoverride.setText("Stop");
+		
+		Button btnExecute = new Button(composite, SWT.NONE);
+		btnExecute.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
-				trajectory.setType( combo.getText() );
-				BrowserUtil.evaluate(browser, trajectory.setTrajectory(), bcb );   
 			}
 		});
+		btnExecute.setText("Execute");
 		
-		new Label(composite, SWT.NONE);
-		new Label(composite, SWT.NONE);
+		Button btnOverride = new Button(composite, SWT.NONE);
+		btnOverride.setText("Override");
 		new Label(composite, SWT.NONE);
 		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
@@ -277,6 +315,8 @@ public class AquabotsView extends Composite {
 		tbtmSystem.setText("System");
 		
 		tabFolder.setSelection(0);
+		
+		this.model.addListener( this.listener);
 	}
 
 	@Override
