@@ -18,6 +18,16 @@ public class WayPoint implements Comparable<WayPoint>{
 		}
 	}
 	
+	public enum LonLat{
+		LON,
+		LAT;
+		
+		@Override
+		public String toString() {
+			return StringStyler.prettyString( super.toString());
+		}
+	}
+	
 	public enum WayPointEvents{
 		APPENDED,
 		INSERTED,

@@ -4,7 +4,7 @@ public class GeoView {
 
 	public static final float DEF_LONGTITUDE = 6.15388f;
 	public static final float DEF_LATITUDE = 52.24967f;
-	public static final int DEF_ZOOM = 16;
+	public static final int DEF_ZOOM = 17;
 	
 	public static final float DEF_HORIZONTAL = 0.005f;
 	public static final float DEF_VERTICAL = 0.02f;

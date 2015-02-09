@@ -18,9 +18,21 @@ public class TrajectoryModel {
 
 	public static final int DEFAULT_SPEED = 50;
 
+	public enum Boats{
+		AFTICA,
+		EIND_MAAS,
+		COSTA,
+		JULES_DOCK;
+
+		@Override
+		public String toString() {
+			return StringStyler.prettyString( super.toString());
+		}
+	}
+
 	public enum Attributes{
 		ID,
-		NAME,
+		BOAT,
 		ARGUMENTS;
 
 		@Override
@@ -28,6 +40,7 @@ public class TrajectoryModel {
 			return StringStyler.prettyString( super.toString());
 		}
 	}
+	
 	public enum Types{
 		CONTINUOUS,
 		BOUNDED;
@@ -79,14 +92,15 @@ public class TrajectoryModel {
 
 	private Collection<ITrajectoryListener> listeners;
 
-	private static TrajectoryModel model = new TrajectoryModel();
+	private static TrajectoryModel model = new TrajectoryModel( Boats.AFTICA.toString() );
 
 	private WayPoint last;
 	private Lock lock;
+	private String boat;
 
-	private TrajectoryModel() {
+	private TrajectoryModel( String boat ) {
 		this.time = Calendar.getInstance().getTimeInMillis();
-
+		this.boat = boat;
 		waypoints = new Vector<WayPoint>();
 		this.active = 0;
 		this.listeners = new ArrayList<ITrajectoryListener>();
@@ -94,8 +108,9 @@ public class TrajectoryModel {
 		this.id = this.hashCode();
 	}
 
-	private TrajectoryModel( int id, Vector<WayPoint> waypoints ) {
+	private TrajectoryModel( int id, String boat, Vector<WayPoint> waypoints ) {
 		this.id = id;
+		this.boat = boat;
 		this.time = Calendar.getInstance().getTimeInMillis();
 		this.waypoints = waypoints;
 		this.active = 0;
@@ -109,6 +124,10 @@ public class TrajectoryModel {
 
 	public int getID(){
 		return this.id;
+	}
+	
+	public String getBoat(){
+		return this.boat;
 	}
 	
 	public void clear(){
@@ -134,6 +153,18 @@ public class TrajectoryModel {
 		}
 	}
 
+	public WayPoint getActiveWaipoint(){
+		return this.waypoints.get( active );
+	}
+	
+	public int getActiveIndex(){
+		return active;
+	}
+	
+	public void next(){
+		this.active++;
+	}
+	
 	public synchronized void addWayPoint( WayPoint waypoint ){
 		this.lock.lock();
 		try{
@@ -303,10 +334,14 @@ public class TrajectoryModel {
 				return null;
 			Vector<WayPoint> wps = new Vector<WayPoint>( this.waypoints);
 			this.waypoints.clear();
-			return new TrajectoryModel( id, wps );
+			return new TrajectoryModel( id, this.boat, wps );
 		}
 		finally{
 			lock.unlock();
 		}
+	}
+	
+	public int size(){
+		return this.waypoints.size();
 	}
 }

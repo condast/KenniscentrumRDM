@@ -75,7 +75,9 @@ public class AquabotsView extends Composite {
 						list.remove(0);
 					list.update();
 					list.setSelection( list.getItemCount() - 1);
-					display.update();
+					list.computeSize(list.getSize().x, SWT.DEFAULT);
+					layout();
+					update();
 				}
 				
 			});

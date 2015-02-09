@@ -2,7 +2,7 @@ var layer = new ol.layer.Tile({source: new ol.source.OSM()});
 
 var view = new ol.View({	
 	  center: [6.15388, 52.24966],
-   	  zoom: 4
+   	  zoom: 6
    	}
 );
 
