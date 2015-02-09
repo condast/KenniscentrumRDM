@@ -19,5 +19,13 @@
             class="org.rdm.aquabots.dashboard.MapServlet">
       </servlet>
    </extension>
+   <extension
+         point="org.eclipse.rap.ui.themes">
+      <theme
+            file="web/styles/aquabots.css"
+            id="org.rdm.aquabots.dashboard.theme"
+            name="AquabotsTheme">
+      </theme>
+   </extension>
 
 </plugin>

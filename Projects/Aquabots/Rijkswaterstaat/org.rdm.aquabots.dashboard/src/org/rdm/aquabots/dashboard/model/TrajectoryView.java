@@ -1,9 +1,10 @@
 package org.rdm.aquabots.dashboard.model;
 
+import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class TrajectoryView {
-	private TrajectoryModel.Styles type = TrajectoryModel.Styles.POINT;
+	private WayPoint.Styles type = WayPoint.Styles.POINT;
 
 	private GeoView geoView;
 	
@@ -13,16 +14,16 @@ public class TrajectoryView {
 		this.geoView = geoView;
 	}
 
-	public TrajectoryModel.Styles getType() {
+	public WayPoint.Styles getType() {
 		return type;
 	}
 
-	public void setType(TrajectoryModel.Styles type) {
+	public void setType(WayPoint.Styles type) {
 		this.type = type;
 	}
 
 	public void setType( String type) {
-		this.type = TrajectoryModel.Styles.valueOf( StringStyler.styleToEnum( type ));
+		this.type = WayPoint.Styles.valueOf( StringStyler.styleToEnum( type ));
 	}
 
 	public String setTrajectory(){

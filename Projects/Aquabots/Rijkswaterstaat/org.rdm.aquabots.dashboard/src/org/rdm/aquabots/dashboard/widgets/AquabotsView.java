@@ -3,7 +3,6 @@ package org.rdm.aquabots.dashboard.widgets;
 import java.util.logging.Logger;
 
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.widgets.BrowserCallback;
 import org.eclipse.rap.rwt.widgets.BrowserUtil;
 import org.eclipse.swt.widgets.Composite;
@@ -22,16 +21,15 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.rdm.aquabots.dashboard.json.JSonUtils;
 import org.rdm.aquabots.dashboard.model.GeoView;
 import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
 import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
-import org.rdm.aquabots.dashboard.model.TrajectoryView;
-import org.rdm.aquabots.dashboard.model.WayPoint;
+import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
 import org.rdm.aquabots.dashboard.utils.ImageResources;
 import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.List;
 
 public class AquabotsView extends Composite {
@@ -44,27 +42,44 @@ public class AquabotsView extends Composite {
 	private DigitsSpinner spinner;
 	private DigitsSpinner spinner_1;
 	
+	Display display;
 	private List list;
+	private Button btnExecute;
 	
 	private GeoView geo = new GeoView();
-	private TrajectoryView trajectory = new TrajectoryView( geo );
+	
+	//private TrajectoryView trajectory = new TrajectoryView( geo );
+	
 	private TrajectoryModel model = TrajectoryModel.getInstance();
 	
-	private ITrajectoryListener listener = new ITrajectoryListener(){
-
+	//private WayPointManager manager = WayPointManager.getInstance();
+	private ITrajectoryListener listener = new ITrajectoryListener() {
+		
 		@Override
-		public void notifyTrajectoryChanged(TrajectoryEvent event) {
-			if( list == null )
+		public void notifyTrajectoryChanged( TrajectoryEvent event) {
+			if(( display == null ) || ( display.isDisposed()))
 				return;
-			Display.getCurrent().asyncExec( new Runnable(){
+			if( !Styles.POINT.equals( event.getWayPoint().getStyle()))
+				return;
+		    display.asyncExec( new Runnable(){
 
 				@Override
 				public void run() {
-					WayPoint waypoint = event.getWayPoint();
-					list.add( waypoint.getEvent() + ": " + waypoint.toString() + "-" + waypoint.getSpeed());
+					if( btnExecute != null ){
+						btnExecute.setEnabled( true );
+					}
+					if( list == null )
+						return;
+					list.add( event.getWayPoint().toLongLat());
+					if( list.getItemCount() > 5 )
+						list.remove(0);
+					list.update();
+					list.setSelection( list.getItemCount() - 1);
+					display.update();
 				}
 				
-			});			
+			});
+			
 		}
 	};
 	
@@ -92,6 +107,8 @@ public class AquabotsView extends Composite {
 	 */
 	public AquabotsView(Composite parent, int style) {
 		super(parent, style);
+		this.model.clear();
+		this.model.addListener(listener);
 		setLayout(new FillLayout(SWT.HORIZONTAL));
 		
 		CTabFolder tabFolder = new CTabFolder(this, SWT.BORDER);
@@ -165,10 +182,10 @@ public class AquabotsView extends Composite {
 		composite_1.setLayoutData(gd_composite_1);
 		new Label(composite_1, SWT.NONE);
 
-		Button button = new Button(composite_1, SWT.NONE);
-		//button.setImage( ImageResources.getInstance().getImage( Images.UP ));
-		ImageResources.setImage( button, Images.UP );
-		button.addSelectionListener(new SelectionAdapter() {
+		Button upButton = new Button(composite_1, SWT.NONE);
+		upButton.setData( RWT.CUSTOM_VARIANT, "upButton" );
+		//ImageResources.setImage( upButton, Images.UP );
+		upButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
@@ -177,9 +194,10 @@ public class AquabotsView extends Composite {
 		});
 		new Label(composite_1, SWT.NONE);
 
-		Button btnNewButton = new Button(composite_1, SWT.NONE);
-		btnNewButton.setImage( ImageResources.getInstance().getImage( Images.LEFT ));
-		btnNewButton.addSelectionListener(new SelectionAdapter() {
+		Button leftButton = new Button(composite_1, SWT.NONE);
+		leftButton.setData( RWT.CUSTOM_VARIANT, "leftButton" );
+		//ImageResources.setImage( leftButton, Images.LEFT );
+		leftButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
@@ -188,9 +206,9 @@ public class AquabotsView extends Composite {
 		});
 		new Label(composite_1, SWT.NONE);
 
-		Button btnNewButton_1 = new Button(composite_1, SWT.NONE);
-		btnNewButton_1.setImage( ImageResources.getInstance().getImage( Images.RIGHT ));
-		btnNewButton_1.addSelectionListener(new SelectionAdapter() {
+		Button rightButton = new Button(composite_1, SWT.NONE);
+		rightButton.setImage( ImageResources.getInstance().getImage( Images.RIGHT ));
+		rightButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
@@ -199,9 +217,9 @@ public class AquabotsView extends Composite {
 		});
 		new Label(composite_1, SWT.NONE);
 
-		Button btnVv = new Button(composite_1, SWT.NONE);
-		btnVv.setImage( ImageResources.getInstance().getImage( Images.DOWN ));
-		btnVv.addSelectionListener(new SelectionAdapter() {
+		Button downButton = new Button(composite_1, SWT.NONE);
+		downButton.setImage( ImageResources.getInstance().getImage( Images.DOWN ));
+		downButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
@@ -211,57 +229,56 @@ public class AquabotsView extends Composite {
 		new Label(composite_1, SWT.NONE);
 		new Label(composite, SWT.NONE);
 
-		Button btnZoom = new Button(composite, SWT.NONE);
-		btnZoom.setText("zoom-");
+		Button zoominButton = new Button(composite, SWT.NONE);
+		zoominButton.setText("zoom-");
 
-		Button btnNewButton_2 = new Button(composite, SWT.NONE);
-		btnNewButton_2.setText("zoom+");
-		btnNewButton_2.setImage( ImageResources.getInstance().getImage( Images.LEFT ));
+		Button zoomoutButton = new Button(composite, SWT.NONE);
+		zoomoutButton.setText("zoom+");
+		zoomoutButton.setImage( ImageResources.getInstance().getImage( Images.LEFT ));
 		new Label(composite, SWT.NONE);
 		
 		Group grpDraw = new Group(composite, SWT.NONE);
 		grpDraw.setText("Draw");
-		grpDraw.setLayout(new GridLayout(3, false));
-		grpDraw.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
+		grpDraw.setLayout(new GridLayout(1, false));
+		grpDraw.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
 		
 		list = new List(grpDraw, SWT.BORDER | SWT.MULTI);
-		GridData gd_list = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
-		gd_list.widthHint = 89;
+		GridData gd_list = new GridData(SWT.FILL, SWT.FILL, true, false, 0, 1);
+		gd_list.widthHint = 135;
 		list.setLayoutData(gd_list);
-		new Label(grpDraw, SWT.NONE);
+		display = list.getDisplay();
 		
-		Composite composite_3 = new Composite(grpDraw, SWT.NONE);
-		GridData gd_composite_3 = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
-		gd_composite_3.heightHint = 43;
-		gd_composite_3.widthHint = 116;
-		composite_3.setLayoutData(gd_composite_3);
-		composite_3.setLayout(new GridLayout(1, false));
-		
-		Button btnStopoverride = new Button(composite_3, SWT.NONE);
-		GridData gd_btnStopoverride = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
-		gd_btnStopoverride.widthHint = 103;
-		btnStopoverride.setLayoutData(gd_btnStopoverride);
-		btnStopoverride.setText("Stop");
-		
-		Button btnExecute = new Button(composite, SWT.NONE);
+		btnExecute = new Button(composite, SWT.NONE);
+		btnExecute.setEnabled(false);
 		btnExecute.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				TrajectoryModel sendModel = model.createTrajectory();
+				if( sendModel == null )
+					return;
+				String str = JSonUtils.sendMessage( sendModel);
+				BrowserUtil.evaluate(browser, str, bcb );
+				logger.info( str );
+				btnExecute.setEnabled(false);
 			}
 		});
 		btnExecute.setText("Execute");
 		
 		Button btnOverride = new Button(composite, SWT.NONE);
 		btnOverride.setText("Override");
-		new Label(composite, SWT.NONE);
-		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
+		
+		Button btnStopoverride = new Button(composite, SWT.NONE);
+		btnStopoverride.setText("Stop");
+		zoomoutButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
 				BrowserUtil.evaluate(browser, geo.zoomin(), bcb );   
 			}
 		});
-		btnZoom.addSelectionListener(new SelectionAdapter() {
+		zoominButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
@@ -315,8 +332,6 @@ public class AquabotsView extends Composite {
 		tbtmSystem.setText("System");
 		
 		tabFolder.setSelection(0);
-		
-		this.model.addListener( this.listener);
 	}
 
 	@Override
@@ -328,5 +343,13 @@ public class AquabotsView extends Composite {
 	public boolean setFocus() {
         BrowserUtil.evaluate(browser, geo.init(), bcb );
 		return super.setFocus();
-	}	
+	}
+
+	@Override
+	public void dispose() {
+		this.model.removeListener(listener);
+		super.dispose();
+	}
+	
+	
 }

@@ -10,6 +10,7 @@ import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 
 public class ImageResources extends AbstractImages{
 
@@ -122,6 +123,11 @@ public class ImageResources extends AbstractImages{
 	public static void setImage( Control widget, Images image ){
 		widget.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
 		//registerImage( image );
+		if( widget instanceof Label ){
+			  Label label = (Label) widget;
+			  String src = getImageString( image );
+			  label.setText( "Hello<img width='24' height='24' src='" + src + "'/> there " );
+			}
 		if( widget instanceof Button ){
 		  Button button = (Button) widget;
 		  String src = getImageString( image );

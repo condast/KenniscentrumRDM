@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel.Append;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel.Parameters;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Styles;
-import org.rdm.aquabots.dashboard.model.WayPoint;
+import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class MapServlet extends HttpServlet {
@@ -25,7 +25,7 @@ public class MapServlet extends HttpServlet {
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
 	
 	private TrajectoryModel model = TrajectoryModel.getInstance();
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -38,7 +38,7 @@ public class MapServlet extends HttpServlet {
 		}
 		for( WayPoint waypoint: model.createWayPoints( map, Append.LAST )){
 			String str = map.get( Parameters.STYLE.toString().toLowerCase());
-			if( TrajectoryModel.Styles.POINT.equals( Styles.valueOf( StringStyler.styleToEnum( str )) ))
+			if( WayPoint.Styles.POINT.equals( WayPoint.Styles.valueOf( StringStyler.styleToEnum( str )) ))
 				model.addWayPoint(waypoint);
 		}
 		super.doGet(req, resp);

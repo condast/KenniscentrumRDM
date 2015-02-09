@@ -5,3 +5,23 @@ body{height:100%}
   height:90%;
   width:95%
 }
+
+Label.customLabel {
+  font: bold 16px Arial;
+  text-shadow: 2px 2px #bbbbbb;
+  text-decoration: underline;
+}
+
+#left-button {
+  background-image: url( resources/double-arrow-left-64.png );
+}
+
+#dashboard{
+	width: 25%;
+}
+
+#lon-id{
+  font: bold 16px Arial;
+  text-shadow: 2px 2px #bbbbbb;
+  text-decoration: underline;
+}
