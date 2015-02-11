@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.equinox.http.registry.resources">
       <resource
-            alias="/aquabots"
+            alias="/main"
             base-name="/web">
       </resource>
       <resource
@@ -15,17 +15,9 @@
    <extension
          point="org.eclipse.equinox.http.registry.servlets">
       <servlet
-            alias="/aquabots/MapServlet"
+            alias="/main/MapServlet"
             class="org.rdm.aquabots.dashboard.MapServlet">
       </servlet>
-   </extension>
-   <extension
-         point="org.eclipse.rap.ui.themes">
-      <theme
-            file="web/styles/aquabots.css"
-            id="org.rdm.aquabots.dashboard.theme"
-            name="AquabotsTheme">
-      </theme>
    </extension>
 
 </plugin>

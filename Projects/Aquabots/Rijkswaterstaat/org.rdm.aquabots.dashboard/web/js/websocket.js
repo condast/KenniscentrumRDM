@@ -1,17 +1,15 @@
-//var ws = new WebSocket("ws://127.0.0.1:9020/");
-//var ws = new WebSocket("ws://nr25.de:9000/aquatic-drone");
-
-var messages = document.getElementById("messages");
-
+var webSocket;
 
 function openSocket(){
+	console.log( "preparing to open" );
 	// Ensures only one connection is open at a time
 	if(webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED){
 		writeResponse("WebSocket is already opened.");
 		return;
 	}
 	// Create a new instance of the websocket
-	webSocket = new WebSocket("ws:////nr25.de:9000/aquatic-drone");
+	webSocket = new WebSocket("ws://nr2k.de:9000", "aquatic-drone");
+	console.log( "websocket created" );
 
 	/**
 	 * Binds functions to the listeners for the websocket.
@@ -20,6 +18,7 @@ function openSocket(){
 		// For reasons I can't determine, onopen gets called twice
 		// and the first time event.data is undefined.
 		// Leave a comment if you know the answer.
+		console.log('open');
 		if(event.data === undefined)
 			return;
 
@@ -33,21 +32,29 @@ function openSocket(){
 	webSocket.onclose = function(event){
 		writeResponse("Connection closed");
 	};
+	console.log( "ready for connections" );
 }
 
 /**
  * Sends the value of the text input to the server
  */
-function send(){
-	var text = document.getElementById("messageinput").value;
-	webSocket.send(text);
+function send( msg ){
+	console.log( 'sending message: ' + msg );
+	if( webSocket == null ){
+		console.log('web socket not opened');
+		return;
+	}
+	webSocket.send( msg );
+	console.log( 'message sent' );
 }
 
 function closeSocket(){
 	webSocket.close();
+	console.log('web socket closed');
 }
 
 function writeResponse(text){
-	messages.innerHTML += "<br/>" + text;
+	console.log('Response: ' + text );
 }
-            
+
+openSocket();

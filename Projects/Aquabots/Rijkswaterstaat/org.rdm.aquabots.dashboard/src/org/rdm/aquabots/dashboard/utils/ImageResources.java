@@ -15,36 +15,49 @@ import org.eclipse.swt.widgets.Label;
 public class ImageResources extends AbstractImages{
 
 	public static final String S_BUNDLE_ID = "org.rdm.aquabots.dashboard";
-	public static final String S_RESOURCES = "resources/";
+	public static final String S_RESOURCES = "/resources/";
 	public static final String S_DOUBLE_ARROW = "double-arrow-";
+
+	public static final String S_ZOOM_IN = "zoom-in";
+	public static final String S_ZOOM_OUT = "zoom-out";
 
 	public enum Images{
 		UP,
 		DOWN,
 		LEFT,
-		RIGHT;
+		RIGHT,
+		ZOOM_IN,
+		ZOOM_OUT;
 		
 		public static String getFile( Images image ){
 			StringBuffer buffer = new StringBuffer();
-			buffer.append( S_RESOURCES );
-			buffer.append( S_DOUBLE_ARROW );
 			switch( image ){		
 			case UP:
+				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
 				break;
 			case LEFT:
+				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
 				break;
 			case DOWN:
+				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
 				break;
 			case RIGHT:
+				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
+				break;
+			case ZOOM_IN:
+				buffer.append( S_ZOOM_IN );
+				break;
+			case ZOOM_OUT:
+				buffer.append( S_ZOOM_OUT );
 				break;
 			default:
 				break;
 			}
-			buffer.append( "-64.png" );
+			buffer.append( "-32.png" );
 			return buffer.toString();
 		}
 	}
@@ -70,7 +83,7 @@ public class ImageResources extends AbstractImages{
 	}
 
 	public Image getImage( Images image ){
-		return super.getImageFromName( image.name() );
+		return super.getImageFromName( Images.getFile( image ));
 	}
 
 	protected void setImage( Images image ){

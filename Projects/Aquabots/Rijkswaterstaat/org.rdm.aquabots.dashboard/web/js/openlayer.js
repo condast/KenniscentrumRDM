@@ -128,6 +128,6 @@ function zoomin(){
 
 function zoomout(){
     view.setZoom( view.getZoom() + 1);
-}
+}          
 
 initInteraction();

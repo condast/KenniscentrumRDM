@@ -1,25 +1,70 @@
 package org.rdm.aquabots.dashboard.model;
 
+import org.rdm.aquabots.dashboard.utils.StringStyler;
+
 public class GeoView {
 
+	public enum Location{
+		IJSSEL,
+		HEYPLAAT;
+
+		@Override
+		public String toString() {
+			return StringStyler.prettyString( super.toString() );
+		}
+
+		public String toLonLat() {
+			String str = "";
+			switch( this ){
+			case HEYPLAAT:
+				str = "[" + HEY_LONGTITUDE + "," + HEY_LATITUDE + "]";
+				break;
+			case IJSSEL:
+				str = "[" + DEF_LONGTITUDE + "," + DEF_LATITUDE + "]";
+				break;
+			}
+			return str;
+		}
+		
+		public static String[] getNames(){
+			String[] results = new String[ values().length ];
+			int index = 0;
+			for( Location location: values()){
+				results[index++] = location.toString();
+			}
+			return results;
+		}
+	}
+
+	//Ijssel
 	public static final float DEF_LONGTITUDE = 6.15388f;
 	public static final float DEF_LATITUDE = 52.24967f;
+
+	//Heyplaat
+	public static final float HEY_LONGTITUDE = 4.421760f;
+	public static final float HEY_LATITUDE = 51.8984489440918f;
+
 	public static final int DEF_ZOOM = 17;
 	
-	public static final float DEF_HORIZONTAL = 0.005f;
-	public static final float DEF_VERTICAL = 0.02f;
+	public static final float DEF_HORIZONTAL = 0.001f;
+	public static final float DEF_VERTICAL = 0.001f;
 	
 	private float longtitude;
 	private float latitude;
 	private int zoom;
 	
+	private static GeoView geoView = new GeoView();
 	
-	public GeoView() {
+	private GeoView() {
 		super();
 		zoom = DEF_ZOOM;
 		this.longtitude = DEF_LONGTITUDE;
 		this.latitude = DEF_LATITUDE;
 		
+	}
+	
+	public static GeoView getInstance(){
+		return geoView;
 	}
 	public float getLongtitude() {
 		return longtitude;
@@ -53,12 +98,12 @@ public class GeoView {
 	}
 
 	public String left(){
-		this.longtitude += DEF_HORIZONTAL;
+		this.longtitude -= DEF_HORIZONTAL;
 		return jump();
 	}
 
 	public String right(){
-		this.longtitude -= DEF_HORIZONTAL;
+		this.longtitude += DEF_HORIZONTAL;
 		if( this.longtitude < 0 )
 			this.longtitude = 0;
 		return jump();
@@ -68,12 +113,12 @@ public class GeoView {
 		return "zoom(" + this.zoom + ");";
 	}
 
-	public String zoomin() {
+	public String zoomout() {
 		this.zoom ++;
 		return zoom();
 	}
 
-	public String zoomout() {
+	public String zoomin() {
 		if( this.zoom > 0)
 			this.zoom--;
 		return zoom();

@@ -12,3 +12,4 @@ Service-Component: OSGI-INF/contribution.xml
 Import-Package: javax.json;version="1.0.0",
  javax.servlet;version="2.6.0",
  javax.servlet.http;version="2.6.0"
+Bundle-ClassPath: .

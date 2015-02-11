@@ -21,47 +21,64 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.rdm.aquabots.dashboard.history.TrajectoryHistory;
 import org.rdm.aquabots.dashboard.json.JSonUtils;
 import org.rdm.aquabots.dashboard.model.GeoView;
 import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
 import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
+import org.rdm.aquabots.dashboard.utils.AbstractEventBuffer;
 import org.rdm.aquabots.dashboard.utils.ImageResources;
 import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
+import org.rdm.aquabots.dashboard.utils.StringStyler;
+import org.rdm.aquabots.dashboard.websocket.WebSocket;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.custom.CCombo;
 
 public class AquabotsView extends Composite {
 
-	public static final String S_INDEX_HTML = "/aquabots/index.html";
-	
+	public static final String S_INDEX_HTML = "/main/index.html";
+
 	private static final long serialVersionUID = 1L;
 
 	private Browser browser;
 	private DigitsSpinner spinner;
 	private DigitsSpinner spinner_1;
-	
+
 	Display display;
 	private List list;
 	private Button btnExecute;
-	
-	private GeoView geo = new GeoView();
-	
+
+	private GeoView geo = GeoView.getInstance();
+
+	private WebSocket socket;
+
 	//private TrajectoryView trajectory = new TrajectoryView( geo );
-	
+
 	private TrajectoryModel model = TrajectoryModel.getInstance();
-	
+	private TrajectoryHistory history;
+
 	//private WayPointManager manager = WayPointManager.getInstance();
 	private ITrajectoryListener listener = new ITrajectoryListener() {
-		
+
 		@Override
-		public void notifyTrajectoryChanged( TrajectoryEvent event) {
+		public synchronized void notifyTrajectoryChanged( TrajectoryEvent event) {
 			if(( display == null ) || ( display.isDisposed()))
 				return;
 			if( !Styles.POINT.equals( event.getWayPoint().getStyle()))
 				return;
-		    display.asyncExec( new Runnable(){
+			buffer.push(event);
+		}
+	};
+
+	AbstractEventBuffer<TrajectoryEvent> buffer = new AbstractEventBuffer<TrajectoryEvent>( 100 ){
+
+		@Override
+		protected void onEventReceived(TrajectoryEvent last) {
+
+			display.asyncExec( new Runnable(){
 
 				@Override
 				public void run() {
@@ -70,23 +87,18 @@ public class AquabotsView extends Composite {
 					}
 					if( list == null )
 						return;
-					list.add( event.getWayPoint().toLongLat());
+					while( !isEmpty() ){
+						list.add( poll().getWayPoint().toLongLat());
+					}
 					if( list.getItemCount() > 5 )
 						list.remove(0);
-					list.update();
-					list.setSelection( list.getItemCount() - 1);
-					list.computeSize(list.getSize().x, SWT.DEFAULT);
-					layout();
-					update();
-				}
-				
-			});
-			
+				}});
+			//refresh();
 		}
 	};
-	
+
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
-	
+
 	// Execute JavaScript in the browser
 	private BrowserCallback bcb = new BrowserCallback(){
 		private static final long serialVersionUID = 1L;
@@ -100,7 +112,7 @@ public class AquabotsView extends Composite {
 		public void evaluationFailed(Exception exception) {
 			logger.warning( "failed: " + exception);	
 		}   	
-    };
+	};
 
 	/**
 	 * Create the composite.
@@ -109,41 +121,72 @@ public class AquabotsView extends Composite {
 	 */
 	public AquabotsView(Composite parent, int style) {
 		super(parent, style);
+		this.buffer.start();
 		this.model.clear();
 		this.model.addListener(listener);
+		this.history = new TrajectoryHistory();
+		this.createComposite(parent, style);
+	}
+
+	public void createComposite( Composite parent, int style ){
+
 		setLayout(new FillLayout(SWT.HORIZONTAL));
-		
+
 		CTabFolder tabFolder = new CTabFolder(this, SWT.BORDER);
 		tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
-		
+
 		CTabItem tbtmRoute_1 = new CTabItem(tabFolder, SWT.NONE);
+		tabFolder.setData( RWT.CUSTOM_VARIANT, "trajectoryItem" );
 		tbtmRoute_1.setText("Route");
-		
+
 		Composite composite_2 = new Composite(tabFolder, SWT.NONE);
 		tbtmRoute_1.setControl(composite_2);
 		composite_2.setLayout(new GridLayout(2, false));
-		
+
 		Composite composite = new Composite(composite_2, SWT.NONE);
+		composite.setData( RWT.CUSTOM_VARIANT, "trajectory" );
 		GridData gd_composite = new GridData(SWT.FILL, SWT.FILL, false, true, 1, 1);
+		gd_composite.widthHint = 296;
 		gd_composite.heightHint = 392;
 		composite.setLayoutData(gd_composite);
-		composite.setLayout(new GridLayout(3, false));
-		
+		composite.setLayout(new GridLayout(4, false));
+
 		Label lblNewLabel = new Label(composite, SWT.NONE);
-		GridData gd_lblNewLabel = new GridData(SWT.LEFT, SWT.CENTER, false, false, 3, 1);
-		gd_lblNewLabel.heightHint = 22;
-		lblNewLabel.setLayoutData(gd_lblNewLabel);
-		
-		Label lblNewLabel_1 = new Label(composite, SWT.NONE);
-		GridData gd_lblNewLabel_1 = new GridData(SWT.LEFT, SWT.CENTER, false, false, 3, 1);
-		gd_lblNewLabel_1.heightHint = 24;
-		lblNewLabel_1.setLayoutData(gd_lblNewLabel_1);
-		
+		lblNewLabel.setText("Aftica");
+
+		CCombo combo = new CCombo(composite, SWT.BORDER);
+		combo.setItems( GeoView.Location.getNames());
+		combo.select(0);
+		combo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
+		combo.addSelectionListener( new SelectionListener(){
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String str = StringStyler.styleToEnum( combo.getText() );
+				GeoView.Location location = GeoView.Location.valueOf( str );
+				String lonlat = location.toLonLat().replace("[", "");
+				lonlat = lonlat.replace("]", "");
+				String[] split = lonlat.split("[,]");
+				GeoView geo = GeoView.getInstance();
+				geo.setLongtitude( Float.parseFloat( split[0]));
+				geo.setLatitude( Float.parseFloat( split[1]));
+				BrowserUtil.evaluate(browser, geo.jump(), bcb );   
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 		Label lblLongtitude = new Label(composite, SWT.NONE);
 		lblLongtitude.setText("Longtitude:");
-		
+		lblLongtitude.setData( RWT.CUSTOM_VARIANT, "customLabel" );
+
 		spinner = new DigitsSpinner(composite, SWT.BORDER);
-		spinner.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+		spinner.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
 		spinner.setDigits(5);
 		spinner.setMaximum( 10000);
 		spinner.setSelection( geo.getLongtitude());
@@ -161,7 +204,7 @@ public class AquabotsView extends Composite {
 
 		spinner_1 = new DigitsSpinner(composite, SWT.BORDER);
 		spinner_1.setDigits(5);
-		spinner_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,2, 1));
+		spinner_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,3, 1));
 		spinner_1.setMaximum(10000);
 		spinner_1.setSelection( geo.getLatitude());
 		spinner_1.addSelectionListener(new SelectionAdapter() {
@@ -172,85 +215,110 @@ public class AquabotsView extends Composite {
 				BrowserUtil.evaluate(browser, geo.jump(), bcb );   
 			}
 		});
-		new Label(composite, SWT.NONE);
-		new Label(composite, SWT.NONE);
-		new Label(composite, SWT.NONE);
 
 		Composite composite_1 = new Composite(composite, SWT.NONE);
-		composite_1.setLayout(new GridLayout(3, false));
-		GridData gd_composite_1 = new GridData(SWT.FILL, SWT.FILL, false, false, 2, 1);
-		gd_composite_1.widthHint = 113;
-		gd_composite_1.heightHint = 107;
+		composite_1.setLayout(new GridLayout(4, false));
+		GridData gd_composite_1 = new GridData(SWT.FILL, SWT.FILL, true, false, 4, 1);
+		gd_composite_1.widthHint = 158;
+		gd_composite_1.heightHint = 177;
 		composite_1.setLayoutData(gd_composite_1);
 		new Label(composite_1, SWT.NONE);
 
 		Button upButton = new Button(composite_1, SWT.NONE);
-		upButton.setData( RWT.CUSTOM_VARIANT, "upButton" );
-		//ImageResources.setImage( upButton, Images.UP );
+		upButton.setImage( ImageResources.getInstance().getImage( Images.UP ));
 		upButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
+				spinner_1.setSelection(geo.getLatitude());
 				BrowserUtil.evaluate(browser, geo.up(), bcb );   
 			}
 		});
 		new Label(composite_1, SWT.NONE);
 
-		Button leftButton = new Button(composite_1, SWT.NONE);
-		leftButton.setData( RWT.CUSTOM_VARIANT, "leftButton" );
-		//ImageResources.setImage( leftButton, Images.LEFT );
-		leftButton.addSelectionListener(new SelectionAdapter() {
+		Button zoominButton = new Button(composite_1, SWT.NONE);
+		zoominButton.setImage( ImageResources.getInstance().getImage( Images.ZOOM_IN ));
+		zoominButton.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
 			public void widgetSelected(SelectionEvent e) {
-				BrowserUtil.evaluate(browser, geo.left(), bcb );   
+				BrowserUtil.evaluate(browser, geo.zoomout(), bcb );   
 			}
 		});
-		new Label(composite_1, SWT.NONE);
-
-		Button rightButton = new Button(composite_1, SWT.NONE);
-		rightButton.setImage( ImageResources.getInstance().getImage( Images.RIGHT ));
-		rightButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			public void widgetSelected(SelectionEvent e) {
-				BrowserUtil.evaluate(browser, geo.right(), bcb );   
-			}
-		});
-		new Label(composite_1, SWT.NONE);
-
-		Button downButton = new Button(composite_1, SWT.NONE);
-		downButton.setImage( ImageResources.getInstance().getImage( Images.DOWN ));
-		downButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			public void widgetSelected(SelectionEvent e) {
-				BrowserUtil.evaluate(browser, geo.down(), bcb );   
-			}
-		});
-		new Label(composite_1, SWT.NONE);
-		new Label(composite, SWT.NONE);
-
-		Button zoominButton = new Button(composite, SWT.NONE);
-		zoominButton.setText("zoom-");
-
-		Button zoomoutButton = new Button(composite, SWT.NONE);
-		zoomoutButton.setText("zoom+");
-		zoomoutButton.setImage( ImageResources.getInstance().getImage( Images.LEFT ));
-		new Label(composite, SWT.NONE);
 		
+				Button rightButton = new Button(composite_1, SWT.NONE);
+				rightButton.setImage( ImageResources.getInstance().getImage( Images.RIGHT ));
+				rightButton.addSelectionListener(new SelectionAdapter() {
+					private static final long serialVersionUID = 1L;
+
+					public void widgetSelected(SelectionEvent e) {
+						spinner.setSelection(geo.getLongtitude());
+						BrowserUtil.evaluate(browser, geo.right(), bcb );   
+					}
+				});
+		new Label(composite_1, SWT.NONE);
+		
+				Button leftButton = new Button(composite_1, SWT.NONE);
+				leftButton.setData( RWT.CUSTOM_VARIANT, "leftButton" );
+				leftButton.setImage( ImageResources.getInstance().getImage( Images.LEFT ));
+				leftButton.addSelectionListener(new SelectionAdapter() {
+					private static final long serialVersionUID = 1L;
+
+					public void widgetSelected(SelectionEvent e) {
+						spinner.setSelection(geo.getLongtitude());
+						BrowserUtil.evaluate(browser, geo.left(), bcb );   
+					}
+				});
+		new Label(composite_1, SWT.NONE);
+		new Label(composite_1, SWT.NONE);
+		
+				Button downButton = new Button(composite_1, SWT.NONE);
+				downButton.setImage( ImageResources.getInstance().getImage( Images.DOWN ));
+				downButton.addSelectionListener(new SelectionAdapter() {
+					private static final long serialVersionUID = 1L;
+
+					public void widgetSelected(SelectionEvent e) {
+						spinner_1.setSelection(geo.getLatitude());
+						BrowserUtil.evaluate(browser, geo.down(), bcb );   
+					}
+				});
+
+		new Label(composite_1, SWT.NONE);
+		Button zoomoutButton = new Button(composite_1, SWT.NONE);
+		zoomoutButton.setImage( ImageResources.getInstance().getImage( Images.ZOOM_OUT ));
+		zoomoutButton.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 1L;
+
+			public void widgetSelected(SelectionEvent e) {
+				BrowserUtil.evaluate(browser, geo.zoomin(), bcb );   
+			}
+		});
+
 		Group grpDraw = new Group(composite, SWT.NONE);
-		grpDraw.setText("Draw");
+		grpDraw.setText("Trajectory");
 		grpDraw.setLayout(new GridLayout(1, false));
-		grpDraw.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
-		
+		GridData gd_grpDraw = new GridData(SWT.FILL, SWT.FILL, true, true, 4, 1);
+		gd_grpDraw.widthHint = 264;
+		grpDraw.setLayoutData(gd_grpDraw);
+
 		list = new List(grpDraw, SWT.BORDER | SWT.MULTI);
-		GridData gd_list = new GridData(SWT.FILL, SWT.FILL, true, false, 0, 1);
-		gd_list.widthHint = 135;
+		GridData gd_list = new GridData(SWT.FILL, SWT.FILL, true, true, 0, 1);
+		gd_list.heightHint = 30;
+		gd_list.widthHint = 211;
 		list.setLayoutData(gd_list);
+
+		Button btnNewButton = new Button(grpDraw, SWT.NONE);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		btnNewButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		btnNewButton.setText("Refresh");
 		display = list.getDisplay();
-		
+
 		btnExecute = new Button(composite, SWT.NONE);
+		btnExecute.setText("Execute");
 		btnExecute.setEnabled(false);
 		btnExecute.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
@@ -260,31 +328,27 @@ public class AquabotsView extends Composite {
 				TrajectoryModel sendModel = model.createTrajectory();
 				if( sendModel == null )
 					return;
-				String str = JSonUtils.sendMessage( sendModel);
-				BrowserUtil.evaluate(browser, str, bcb );
+				history.addTrajectory(sendModel);
+				list.removeAll();
+				String str = JSonUtils.sendMessage( sendModel );
+				socket.sendMessage( str );
 				logger.info( str );
 				btnExecute.setEnabled(false);
 			}
 		});
-		btnExecute.setText("Execute");
-		
-		Button btnOverride = new Button(composite, SWT.NONE);
-		btnOverride.setText("Override");
-		
+		new Label(composite, SWT.NONE);
+
+		Button btnAppend = new Button(composite, SWT.NONE);
+		btnAppend.setText("Append");
+
 		Button btnStopoverride = new Button(composite, SWT.NONE);
 		btnStopoverride.setText("Stop");
-		zoomoutButton.addSelectionListener(new SelectionAdapter() {
+		btnStopoverride.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
-				BrowserUtil.evaluate(browser, geo.zoomin(), bcb );   
-			}
-		});
-		zoominButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			public void widgetSelected(SelectionEvent e) {
-				BrowserUtil.evaluate(browser, geo.zoomout(), bcb );   
+				socket.sendStop();
 			}
 		});
 		browser = new Browser(composite_2, SWT.NONE);
@@ -310,29 +374,30 @@ public class AquabotsView extends Composite {
 			public void changed(ProgressEvent event) {
 			}
 		});
+		socket = new WebSocket( browser );
 
 		// Add a listener to get the close button on each tab
-	    tabFolder.addSelectionListener( new SelectionListener() {
+		tabFolder.addSelectionListener( new SelectionListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-		        BrowserUtil.evaluate(browser, geo.init(), bcb );
+				BrowserUtil.evaluate(browser, geo.init(), bcb );
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-	    });
-		
+		});
+
 		CTabItem tbtmBathymetry = new CTabItem(tabFolder, SWT.NONE);
 		tbtmBathymetry.setText("Bathymetry");
-		
+
 		CTabItem tbtmSystem = new CTabItem(tabFolder, SWT.NONE);
 		tbtmSystem.setText("System");
-		
+
 		tabFolder.setSelection(0);
 	}
 
@@ -343,15 +408,39 @@ public class AquabotsView extends Composite {
 
 	@Override
 	public boolean setFocus() {
-        BrowserUtil.evaluate(browser, geo.init(), bcb );
 		return super.setFocus();
+	}
+
+	/**
+	 * Refresh the UI
+	 */
+	public void refresh(){
+		display.syncExec( new Runnable(){
+
+			@Override
+			public void run() {
+				list.update();
+				list.setSelection( list.getItemCount() - 1);
+				list.computeSize(list.getSize().x, SWT.DEFAULT);
+				layout();
+				update();
+				//try{
+				//  BrowserUtil.evaluate(browser, GeneralViewFunctions.refresh(), bcb );
+				//}
+				//catch( Exception ex ){
+				//	/* ignore */
+				//}
+			}	
+		});		
 	}
 
 	@Override
 	public void dispose() {
+		this.socket.closeSocket();
+		this.buffer.stop();
 		this.model.removeListener(listener);
 		super.dispose();
 	}
-	
-	
+
+
 }

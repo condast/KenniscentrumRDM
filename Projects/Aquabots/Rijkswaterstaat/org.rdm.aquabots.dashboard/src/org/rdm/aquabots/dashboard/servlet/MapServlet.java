@@ -1,4 +1,4 @@
-package org.rdm.aquabots.dashboard;
+package org.rdm.aquabots.dashboard.servlet;
 
 import java.io.IOException;
 import java.net.URLDecoder;
