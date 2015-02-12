@@ -6,10 +6,12 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.List;
+import org.rdm.aquabots.dashboard.utils.AbstractUIJob;
 
 public class BoatResponseView extends Composite {
 
@@ -19,6 +21,8 @@ public class BoatResponseView extends Composite {
 	private Text mtrRightText;
 	private Text srvLeftText;
 	private Text srvRightText;
+
+	private UIJob uijob;
 
 	/**
 	 * Create the composite.
@@ -102,4 +106,18 @@ public class BoatResponseView extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
+	
+	private static class UIJob extends AbstractUIJob{
+
+		public UIJob(Display display) {
+			super(display);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		protected void onJobStarted() {
+			// TODO Auto-generated method stub
+			
+		}
+	};	
 }

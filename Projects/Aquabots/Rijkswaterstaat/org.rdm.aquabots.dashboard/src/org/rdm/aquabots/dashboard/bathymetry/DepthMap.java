@@ -10,16 +10,22 @@ public class DepthMap {
 
 	private float LAT_BOTTOM_RIGHT = 6.154749870300293f;
 	private float LON_BOTTOM_RIGHTT = 52.250240325927734f;
-	
+
+	private static int DEF_HORIZONTAL = 6000;
+	private static int DEF_VERTICAL = 3000;
+
 	private int maxDepth = 50000;//5 m
 
 	private WayPoint topLeft, bottomRight;
 	
 	private int hor_pixels = 6000;
 	private int ver_pixels = 3000;
+	
 	private DepthWayPoint[][] survey;
 	
-	public DepthMap( int horizontal, int vertical ) {
+	private static DepthMap depthMap = new DepthMap( DEF_HORIZONTAL, DEF_VERTICAL );
+	
+	private DepthMap( int horizontal, int vertical ) {
 		super();
 		survey = new DepthWayPoint[ horizontal][ vertical];
 		topLeft=  new WayPoint( LON_TOP_LEFT, LAT_TOP_LEFT, Styles.POINT );
@@ -31,6 +37,10 @@ public class DepthMap {
 		this.fillRandom( 1000, 0);
 		this.fade( 1 );
 		
+	}
+	
+	public static DepthMap getInstance(){
+		return depthMap;
 	}
 	
 	protected void fillBaseLayer(){

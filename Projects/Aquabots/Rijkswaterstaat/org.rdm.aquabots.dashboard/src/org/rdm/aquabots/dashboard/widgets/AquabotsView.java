@@ -28,7 +28,6 @@ import org.rdm.aquabots.dashboard.model.GeoView;
 import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
 import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Boats;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
 import org.rdm.aquabots.dashboard.utils.AbstractEventBuffer;
 import org.rdm.aquabots.dashboard.utils.AbstractUIJob;
@@ -37,6 +36,7 @@ import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.rdm.aquabots.dashboard.utils.RandomRoutes;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 import org.rdm.aquabots.dashboard.websocket.WebSocket;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.custom.CCombo;
@@ -54,6 +54,7 @@ public class AquabotsView extends Composite {
 	Display display;
 	private List list;
 	private Button btnExecute;
+	//private Canvas bathycanvas;
 
 	private GeoView geo = GeoView.getInstance();
 
@@ -450,9 +451,16 @@ public class AquabotsView extends Composite {
 
 		CTabItem tbtmBathymetry = new CTabItem(tabFolder, SWT.NONE);
 		tbtmBathymetry.setText("Bathymetry");
+		Composite composite_3 = new Composite(tabFolder, SWT.NONE);
+		tbtmBathymetry.setControl(composite_3);
+		composite_3.setLayout(new FillLayout(SWT.HORIZONTAL));
+		//bathycanvas = new BathymetryCanvas( composite_3, SWT.NONE); 
+		Label drw = new Label( composite_3, SWT.NONE );
+		drw.setImage( ImageResources.getInstance().getImage( Images.DEPTH ));
+
+		//Browser echoBrowser = new Browser(tabFolder, SWT.NONE);
+		//tbtmBathymetry.setControl(echoBrowser);
 		
-		Browser echoBrowser = new Browser(tabFolder, SWT.NONE);
-		tbtmBathymetry.setControl(echoBrowser);
 
 		CTabItem tbtmSystem = new CTabItem(tabFolder, SWT.NONE);
 		tbtmSystem.setText("System");
@@ -471,6 +479,14 @@ public class AquabotsView extends Composite {
 	public boolean setFocus() {
 		return super.setFocus();
 	}
+
+	@Override
+	public void redraw()
+    {
+        
+		//bathycanvas.redraw();
+		super.redraw();
+    }
 
 	/**
 	 * Refresh the UI

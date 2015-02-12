@@ -4,6 +4,29 @@ import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class Gps {
 
+	public enum Base{
+		NAME,
+		MODE,
+		COMPASS,
+		GPS;
+
+		@Override
+		public String toString() {
+			return StringStyler.prettyString( super.toString());
+		}
+	}	
+
+	public enum Compass{
+		BEARING,
+		ROLL,
+		PITCH;
+
+		@Override
+		public String toString() {
+			return StringStyler.prettyString( super.toString());
+		}
+	}
+
 	public enum GPS{
 		FIX,
 		SABERTOOTH,
@@ -60,7 +83,38 @@ public class Gps {
 	private Sabertooth sb;
 	private Servo servo;
 	private Path path;
+	private String boat;
+	private Compass compass;
 	
+	private String mode;
+	
+	public Gps( String boat ) {
+		super();
+		this.boat = boat;
+	}
+	
+	public String getBoat(){
+		return boat;
+	}
+
+	
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	
+	public Compass getCompass() {
+		return compass;
+	}
+
+	public void setCompass(Compass compass) {
+		this.compass = compass;
+	}
+
 	public Sabertooth getSb() {
 		return sb;
 	}

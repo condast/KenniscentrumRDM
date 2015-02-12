@@ -17,6 +17,7 @@ public class ImageResources extends AbstractImages{
 	public static final String S_BUNDLE_ID = "org.rdm.aquabots.dashboard";
 	public static final String S_RESOURCES = "/resources/";
 	public static final String S_DOUBLE_ARROW = "double-arrow-";
+	public static final String S_BATHYMETRY = "depth.jpg";
 
 	public static final String S_ZOOM_IN = "zoom-in";
 	public static final String S_ZOOM_OUT = "zoom-out";
@@ -27,7 +28,8 @@ public class ImageResources extends AbstractImages{
 		LEFT,
 		RIGHT,
 		ZOOM_IN,
-		ZOOM_OUT;
+		ZOOM_OUT,
+		DEPTH;
 		
 		public static String getFile( Images image ){
 			StringBuffer buffer = new StringBuffer();
@@ -35,29 +37,37 @@ public class ImageResources extends AbstractImages{
 			case UP:
 				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
+				buffer.append( "-32.png" );
 				break;
 			case LEFT:
 				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
+				buffer.append( "-32.png" );
 				break;
 			case DOWN:
 				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
+				buffer.append( "-32.png" );
 				break;
 			case RIGHT:
 				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
+				buffer.append( "-32.png" );
 				break;
 			case ZOOM_IN:
 				buffer.append( S_ZOOM_IN );
+				buffer.append( "-32.png" );
 				break;
 			case ZOOM_OUT:
 				buffer.append( S_ZOOM_OUT );
+				buffer.append( "-32.png" );
+				break;
+			case DEPTH:
+				buffer.append( S_BATHYMETRY );
 				break;
 			default:
 				break;
 			}
-			buffer.append( "-32.png" );
 			return buffer.toString();
 		}
 	}
@@ -80,6 +90,7 @@ public class ImageResources extends AbstractImages{
 		setImage( Images.LEFT );
 		setImage( Images.DOWN );
 		setImage( Images.RIGHT );
+		setImage( Images.DEPTH );
 	}
 
 	public Image getImage( Images image ){
