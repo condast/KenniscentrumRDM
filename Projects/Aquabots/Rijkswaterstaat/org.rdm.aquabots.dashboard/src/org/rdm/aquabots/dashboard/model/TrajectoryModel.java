@@ -157,6 +157,11 @@ public class TrajectoryModel {
 		return this.waypoints.get( active );
 	}
 	
+	
+	public void setActiveWaypoint(int active) {
+		this.active = active;
+	}
+
 	public int getActiveIndex(){
 		return active;
 	}
@@ -327,6 +332,10 @@ public class TrajectoryModel {
 		return str;
 	}
 
+	public static TrajectoryModel newTrajectory( Boats boat){
+		return new TrajectoryModel( boat.toString());
+	}
+	
 	public TrajectoryModel createTrajectory(){
 		this.lock.lock();
 		try{

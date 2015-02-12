@@ -7,19 +7,11 @@ import javax.json.JsonObject;
 import org.eclipse.rap.rwt.widgets.BrowserCallback;
 import org.eclipse.rap.rwt.widgets.BrowserUtil;
 import org.eclipse.swt.browser.Browser;
+import org.rdm.aquabots.dashboard.json.PredefinedRoutes;
 
 public class WebSocket {
 
-	private static final String S_IJSSEL_Example = "{'Name':'Aftica','Path':{'Length':5,'Currentwp':0," 
-			+ "Waypoints':[{'lat':52.250240325927734,'lon':6.154749870300293},"
-			+ "{'lat':52.250518798828125,'lon':6.1536102294921875},"
-			+ "{'lat':52.249881744384766,'lon':6.15378999710083},"
-			+ "{'lat':52.250240325927734,'lon':6.1547698974609375},"
-			+ "{'lat':52.250240325927734,'lon':6.1547698974609375}]}}";
-
-	public static final String S_Stop = "{\"Name\":\"Aftica\",\"Path\":{\"Length\":0,\"Currentwp\":0, \"Waypoints\":[]}}";
-
-    private boolean opening;
+	private boolean opening;
     private boolean opened;
 
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
@@ -76,10 +68,10 @@ public class WebSocket {
 	}
 	
 	public void sendStop(){
-		sendMessage( S_Stop );
+		sendMessage( PredefinedRoutes.S_Stop );
 	}
 	
 	public void sendIJsselExample(){
-		sendMessage( S_IJSSEL_Example );
+		sendMessage( PredefinedRoutes.S_IJSSEL_Example );
 	}
 }

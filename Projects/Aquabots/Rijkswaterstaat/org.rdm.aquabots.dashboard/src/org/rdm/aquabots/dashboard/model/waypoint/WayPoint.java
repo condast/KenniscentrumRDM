@@ -22,6 +22,15 @@ public class WayPoint implements Comparable<WayPoint>{
 		LON,
 		LAT;
 		
+		public static boolean isValid( String str ){
+			String enm = StringStyler.styleToEnum( str );
+			for( LonLat value: values() ){
+				if( value.name().equals( enm ))
+					return true;
+			}
+			return false;
+		}
+		
 		@Override
 		public String toString() {
 			return StringStyler.prettyString( super.toString());

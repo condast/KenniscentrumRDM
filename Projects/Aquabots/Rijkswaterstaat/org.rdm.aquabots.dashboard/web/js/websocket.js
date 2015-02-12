@@ -55,6 +55,9 @@ function closeSocket(){
 
 function writeResponse(text){
 	console.log('Response: ' + text );
+	$.get("BoatServlet", {data: escape(text)}).done( function(data) {
+		  alert(data);
+	});
 }
 
 openSocket();

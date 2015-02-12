@@ -16,7 +16,11 @@
          point="org.eclipse.equinox.http.registry.servlets">
       <servlet
             alias="/main/MapServlet"
-            class="org.rdm.aquabots.dashboard.MapServlet">
+            class="org.rdm.aquabots.dashboard.servlet.MapServlet">
+      </servlet>
+      <servlet
+            alias="/main/BoatServlet"
+            class="org.rdm.aquabots.dashboard.servlet.BoatServlet">
       </servlet>
    </extension>
 

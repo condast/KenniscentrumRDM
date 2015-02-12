@@ -82,7 +82,7 @@ public abstract class AbstractEventBuffer<T extends Object> {
 		this.service.shutdown();
 	}
 	
-	protected boolean isEmpty(){
+	public boolean isEmpty(){
 		return this.buffer.isEmpty();
 	}
 }

@@ -1,8 +1,5 @@
 package org.rdm.aquabots.dashboard.model.boat;
 
-import java.util.Collection;
-
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class Gps {

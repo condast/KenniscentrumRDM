@@ -1,5 +1,5 @@
 Label.customLabel {
-  font: italics 16px Arial;
+  font: italic 16px Arial;
   text-shadow: 2px 2px #bbbbbb;
   text-decoration: underline;
 }

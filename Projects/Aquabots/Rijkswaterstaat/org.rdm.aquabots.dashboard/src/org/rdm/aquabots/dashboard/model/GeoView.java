@@ -6,7 +6,7 @@ public class GeoView {
 
 	public enum Location{
 		IJSSEL,
-		HEYPLAAT;
+		HEIJPLAAT;
 
 		@Override
 		public String toString() {
@@ -16,7 +16,7 @@ public class GeoView {
 		public String toLonLat() {
 			String str = "";
 			switch( this ){
-			case HEYPLAAT:
+			case HEIJPLAAT:
 				str = "[" + HEY_LONGTITUDE + "," + HEY_LATITUDE + "]";
 				break;
 			case IJSSEL:

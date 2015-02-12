@@ -1,9 +1,14 @@
 package org.rdm.aquabots.dashboard.json;
 
+import java.io.StringReader;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.stream.JsonParser;
 
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 import org.rdm.aquabots.dashboard.model.boat.Command;
@@ -11,7 +16,7 @@ import org.rdm.aquabots.dashboard.model.boat.Path;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.LonLat;
 
-public class JSonUtils {
+public class JsonUtils {
 
 	/**
 	 * Create a Json object for the waypoints
@@ -139,5 +144,31 @@ public class JSonUtils {
 		String str = String.format( format, number );
 		str = str.replace(",", ".");
 		return Float.valueOf( str );
+	}
+	
+	public static boolean validateJson( String str ){
+		StringReader reader = new StringReader( str );
+		try {
+			JsonParser parser = Json.createParser(reader);
+			while( parser.hasNext() ){
+				parser.next();
+			}
+		} 
+		catch (JsonException ex) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static JsonObject convertToJson( String str ){
+		JsonReader jsonReader = Json.createReader(new StringReader( str ));
+		JsonObject object = null;
+		try{
+			object = jsonReader.readObject();
+		}
+		finally{
+			jsonReader.close();
+		}
+		return object;
 	}
 }
