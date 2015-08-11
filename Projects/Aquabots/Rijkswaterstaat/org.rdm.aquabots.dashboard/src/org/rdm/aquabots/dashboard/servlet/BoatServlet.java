@@ -27,7 +27,7 @@ public class BoatServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		Enumeration<String> attrs = req.getParameterNames();
-		logger.info("DO GET " );
+		//logger.info("DO GET " );
 
 		Map<String, String> map = new HashMap<String, String>();
 		while( attrs.hasMoreElements()){

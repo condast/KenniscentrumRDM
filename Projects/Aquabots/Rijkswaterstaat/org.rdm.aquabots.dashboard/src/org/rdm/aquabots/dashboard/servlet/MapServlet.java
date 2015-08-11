@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,19 @@ public class MapServlet extends HttpServlet {
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
 	
 	private TrajectoryModel model = TrajectoryModel.getInstance();
+	private MapSession session = MapSession.getInstance();
+	
+	@Override
+	public void init() throws ServletException {
+		session.setModel(model);
+		super.init();
+	}
+
+	@Override
+	public void destroy() {
+		session.stop();
+		super.destroy();
+	}
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
