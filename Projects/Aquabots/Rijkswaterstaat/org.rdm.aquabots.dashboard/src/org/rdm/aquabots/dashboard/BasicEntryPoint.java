@@ -8,8 +8,9 @@ import org.rdm.aquabots.dashboard.widgets.AquabotsView;
 
 
 public class BasicEntryPoint extends AbstractEntryPoint {
+	private static final long serialVersionUID = 1L;
 
-    @Override
+	@Override
     protected void createContents(Composite parent) {
         parent.setLayout(new FillLayout());
         AquabotsView view = new AquabotsView( parent, SWT.BORDER );

@@ -14,7 +14,7 @@
     <properties>
         <tycho.version>0.22.0</tycho.version>
         <project-root>F:/GitHub/DataCop/Workspace</project-root>
-        <workspace-root>f:\Windows\Condast\Workspaces\RDM\</workspace-root>
+        <workspace-root>P:/Windows/KenniscentrumRDM/Workspace</workspace-root>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
         <luna-update-repo.url>http://download.eclipse.org/eclipse/updates/4.4</luna-update-repo.url>
         <rap-repo.url>http://download.eclipse.org/rt/rap/2.3/</rap-repo.url>

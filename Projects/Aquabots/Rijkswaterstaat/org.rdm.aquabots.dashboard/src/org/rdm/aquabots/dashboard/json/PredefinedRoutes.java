@@ -193,12 +193,10 @@ public class PredefinedRoutes {
 
     private static TrajectoryModel setModel( String key, String value) {
         TrajectoryModel model = null;
-    	switch(key){
-        case S_NAME:
+         if( S_NAME.equals( key )){
             String str = StringStyler.styleToEnum(value);
             model = TrajectoryModel.newTrajectory( Boats.valueOf(str));
-            break;
-         default:
+         }else{
              logger.warning( S_WRN_UNKNOWN_KEY + key);   
         }
         return model;

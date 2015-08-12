@@ -38,7 +38,6 @@ import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.rdm.aquabots.dashboard.utils.RandomRoutes;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 import org.rdm.aquabots.dashboard.websocket.WebSocket;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.custom.CCombo;
@@ -57,6 +56,8 @@ public class AquabotsView extends Composite {
 	private List list;
 	private Button btnExecute;
 	//private Canvas bathycanvas;
+	private CCombo combo;
+	private CCombo examplesCombo;
 
 	private GeoView geo = GeoView.getInstance();
 
@@ -163,7 +164,7 @@ public class AquabotsView extends Composite {
 		gd_grpAftica.heightHint = 100;
 		grpAftica.setLayoutData(gd_grpAftica);
 
-		CCombo combo = new CCombo(grpAftica, SWT.BORDER);
+		combo = new CCombo(grpAftica, SWT.BORDER);
 		combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
 		combo.setItems( GeoView.Location.getNames());
 		combo.select(0);
@@ -315,7 +316,7 @@ public class AquabotsView extends Composite {
 		gd_grpDraw.widthHint = 264;
 		grpDraw.setLayoutData(gd_grpDraw);
 
-		CCombo examplesCombo = new CCombo(grpDraw, SWT.BORDER);
+		examplesCombo = new CCombo(grpDraw, SWT.BORDER);
 		examplesCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 2, 1));
 		examplesCombo.setItems( PredefinedRoutes.Routes.getNames() );
 		examplesCombo.select(0);
