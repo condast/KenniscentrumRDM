@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
 
 public abstract class AbstractExecutorJob {
 
@@ -21,7 +20,7 @@ public abstract class AbstractExecutorJob {
 	public void start(){
 		runnable = new Runnable() {
 			
-			Display display = PlatformUI.getWorkbench().getDisplay();
+			Display display = null;//Platform.get.getDisplay();
 			public void run() {
 				// do some background work ...
 				// schedule the UI update

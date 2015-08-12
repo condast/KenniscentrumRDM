@@ -1,0 +1,24 @@
+############################################################
+# Set up script for Kenniscentrum RDM CloudVPS Server
+# Date: 19 July 2015
+###########################################################
+# Preparation:
+# - Install Oracle JDK 7.x in /opt/
+# - Install Virgo Nano RAP server in /opt/
+###########################################################
+# Add to /etc/profile
+#JAVA Set up
+# export JAVA_HOME=/opt/jdk/jdk1.7.0_79
+# export PATH=$PATH:$JAVA_HOME/bin
+#
+#Virgo setup
+#export SERVER_HOME=/opt/virgo-nano-rap-3.7.0.RELEASE
+#
+source etc/profile
+#########################################################
+# Activate sh shells
+.RELEASE/bin# cd ..
+root@vps60493:/opt/virgo-nano-rap-3.7.0.RELEASE# chmod 777 bin/startup.sh
+root@vps60493:/opt/virgo-nano-rap-3.7.0.RELEASE# chmod 777 bin/dmk.sh
+root@vps60493:/opt/virgo-nano-rap-3.7.0.RELEASE# chmod 777 $JAVA_HOME/bin/java
+bin/startup.sh

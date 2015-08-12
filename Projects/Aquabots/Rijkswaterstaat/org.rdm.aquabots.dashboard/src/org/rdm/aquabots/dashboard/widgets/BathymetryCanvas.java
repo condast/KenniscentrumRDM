@@ -12,19 +12,21 @@ import org.rdm.aquabots.dashboard.bathymetry.DepthMap;
 import org.rdm.aquabots.dashboard.utils.AbstractUIJob;
 
 public class BathymetryCanvas extends Canvas {
+	private static final long serialVersionUID = 1L;
 
 	private DepthMap survey = DepthMap.getInstance();
 	
 	private UIJob uijob;
 	
 	private Display display;
+	private Shell shell;
 
 	public BathymetryCanvas(Composite parent, int style) {
 		super(parent, style);
 		//survey.init();
 		uijob = new UIJob( this.getDisplay() );
 		this.display = getDisplay();
-		Shell shell = new Shell( display );
+		shell = new Shell( display );
 		shell.addPaintListener(new PaintListener(){
 			private static final long serialVersionUID = 1L;
 

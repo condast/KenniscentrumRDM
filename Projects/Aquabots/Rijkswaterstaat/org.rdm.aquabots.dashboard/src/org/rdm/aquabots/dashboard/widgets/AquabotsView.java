@@ -28,15 +28,16 @@ import org.rdm.aquabots.dashboard.model.GeoView;
 import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
 import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
+import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
-import org.rdm.aquabots.dashboard.utils.AbstractEventBuffer;
-import org.rdm.aquabots.dashboard.utils.AbstractUIJob;
+import org.rdm.aquabots.dashboard.servlet.ISessionListener;
+import org.rdm.aquabots.dashboard.servlet.MapSession;
+import org.rdm.aquabots.dashboard.servlet.SessionEvent;
 import org.rdm.aquabots.dashboard.utils.ImageResources;
 import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.rdm.aquabots.dashboard.utils.RandomRoutes;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 import org.rdm.aquabots.dashboard.websocket.WebSocket;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.custom.CCombo;
@@ -55,6 +56,8 @@ public class AquabotsView extends Composite {
 	private List list;
 	private Button btnExecute;
 	//private Canvas bathycanvas;
+	private CCombo combo;
+	private CCombo examplesCombo;
 
 	private GeoView geo = GeoView.getInstance();
 
@@ -76,52 +79,28 @@ public class AquabotsView extends Composite {
 				return;
 			if( !Styles.POINT.equals( event.getWayPoint().getStyle()))
 				return;
-			buffer.push(event);
 		}
 	};
 
-	AbstractEventBuffer<TrajectoryEvent> buffer = new AbstractEventBuffer<TrajectoryEvent>( 100 ){
+	private MapSession session = MapSession.getInstance();
+	private ISessionListener sl = new ISessionListener(){
 
 		@Override
-		protected void onEventReceived(TrajectoryEvent last) {
-			//listjob.start();
-
-			display.asyncExec( new Runnable(){
-
-				@Override
-				public void run() {
-					if( btnExecute != null ){
-						btnExecute.setEnabled( true );
-					}
-					if( list == null )
-						return;
-					while( !isEmpty() ){
-						list.add( poll().getWayPoint().toLongLat());
-					}
-					if( list.getItemCount() > 5 )
-						list.remove(0);
-				}});
-			//refresh();
-		}
-	};
-	private AbstractUIJob listjob = new AbstractUIJob( display ){
-		
-		@Override
-		protected void onJobStarted() {
-			if( btnExecute != null ){
-				btnExecute.setEnabled( true );
-			}
+		public void notifySessionChanged(SessionEvent event) {
 			if( list == null )
 				return;
-			while( !buffer.isEmpty() ){
-				list.add( buffer.poll().getWayPoint().toLongLat());
+			list.removeAll();
+			for( WayPoint wp: model.getWayPoints() ){
+				list.add( wp.toLongLat());
 			}
 			if( list.getItemCount() > 5 )
 				list.remove(0);
+			refresh();
+			
 		}
 		
 	};
-
+		
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
 
 	// Execute JavaScript in the browser
@@ -146,11 +125,13 @@ public class AquabotsView extends Composite {
 	 */
 	public AquabotsView(Composite parent, int style) {
 		super(parent, style);
-		this.buffer.start();
 		this.model.clear();
 		this.model.addListener(listener);
 		this.history = new TrajectoryHistory();
 		this.createComposite(parent, style);
+		this.session.addSessionListener(sl);
+		this.session.init( Display.getDefault());
+		this.session.start();
 	}
 
 	public void createComposite( Composite parent, int style ){
@@ -183,7 +164,7 @@ public class AquabotsView extends Composite {
 		gd_grpAftica.heightHint = 100;
 		grpAftica.setLayoutData(gd_grpAftica);
 
-		CCombo combo = new CCombo(grpAftica, SWT.BORDER);
+		combo = new CCombo(grpAftica, SWT.BORDER);
 		combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
 		combo.setItems( GeoView.Location.getNames());
 		combo.select(0);
@@ -335,7 +316,7 @@ public class AquabotsView extends Composite {
 		gd_grpDraw.widthHint = 264;
 		grpDraw.setLayoutData(gd_grpDraw);
 
-		CCombo examplesCombo = new CCombo(grpDraw, SWT.BORDER);
+		examplesCombo = new CCombo(grpDraw, SWT.BORDER);
 		examplesCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 2, 1));
 		examplesCombo.setItems( PredefinedRoutes.Routes.getNames() );
 		examplesCombo.select(0);
@@ -359,23 +340,12 @@ public class AquabotsView extends Composite {
 
 		list = new List(grpDraw, SWT.BORDER | SWT.MULTI);
 		list.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 0, 1));
-		
-		Button btnRefreshButton = new Button(grpDraw, SWT.NONE);
-		btnRefreshButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		btnRefreshButton.addSelectionListener(new SelectionAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				//routes.start();
-			}
-		});
-		btnRefreshButton.setText("Refresh");
+		new Label(grpDraw, SWT.NONE);
 		display = list.getDisplay();
 
 		btnExecute = new Button(composite, SWT.NONE);
 		btnExecute.setText("Execute");
-		btnExecute.setEnabled(false);
+		btnExecute.setEnabled(true);
 		btnExecute.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
@@ -389,7 +359,7 @@ public class AquabotsView extends Composite {
 				String str = JsonUtils.sendMessage( sendModel );
 				socket.sendMessage( str );
 				logger.info( str );
-				btnExecute.setEnabled(false);
+				//btnExecute.setEnabled(false);
 			}
 		});
 		new Label(composite, SWT.NONE);
@@ -515,7 +485,8 @@ public class AquabotsView extends Composite {
 	public void dispose() {
 		routes.stop();
 		this.socket.closeSocket();
-		this.buffer.stop();
+		//this.buffer.stop();
+		//this.session.removeSessionListener(sl);
 		this.model.removeListener(listener);
 		super.dispose();
 	}
