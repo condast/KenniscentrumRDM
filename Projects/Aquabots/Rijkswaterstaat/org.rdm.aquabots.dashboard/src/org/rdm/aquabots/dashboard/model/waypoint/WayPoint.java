@@ -165,7 +165,10 @@ public class WayPoint implements Comparable<WayPoint>{
 		long comp = (long)( diff * mul );
 		if( comp != 0 )
 			return ( comp<0)? -1: 1;
-		comp = (long)( this.latitude - arg0.getLatitude() ) * 10^6;
+		mul = (float) Math.pow(10, 4);
+		comp = (long)(( this.latitude - arg0.getLatitude() ) * mul);
+		if( comp == 0 )
+			return 0;
 		return ( comp<0)? -1: 1;
 	}
 }

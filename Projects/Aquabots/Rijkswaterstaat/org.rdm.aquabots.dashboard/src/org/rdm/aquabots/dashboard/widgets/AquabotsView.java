@@ -1,7 +1,11 @@
 package org.rdm.aquabots.dashboard.widgets;
 
+import java.net.URL;
 import java.util.logging.Logger;
 
+import org.eclipse.equinox.security.auth.ILoginContext;
+import org.eclipse.equinox.security.auth.LoginContextFactory;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.widgets.BrowserCallback;
 import org.eclipse.rap.rwt.widgets.BrowserUtil;
@@ -21,6 +25,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.rdm.aquabots.dashboard.Activator;
+import org.rdm.aquabots.dashboard.authentication.RdmLoginBean;
 import org.rdm.aquabots.dashboard.history.TrajectoryHistory;
 import org.rdm.aquabots.dashboard.json.JsonUtils;
 import org.rdm.aquabots.dashboard.json.PredefinedRoutes;
@@ -37,10 +43,14 @@ import org.rdm.aquabots.dashboard.utils.ImageResources;
 import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.rdm.aquabots.dashboard.utils.RandomRoutes;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
+import org.rdm.aquabots.dashboard.utils.authentication.AuthenticationEvent;
+import org.rdm.aquabots.dashboard.utils.authentication.IAuthenticationListener;
 import org.rdm.aquabots.dashboard.websocket.WebSocket;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 public class AquabotsView extends Composite {
 
@@ -52,12 +62,13 @@ public class AquabotsView extends Composite {
 	private DigitsSpinner spinner;
 	private DigitsSpinner spinner_1;
 
-	Display display;
+	private Display display;
 	private List list;
 	private Button btnExecute;
 	//private Canvas bathycanvas;
 	private CCombo combo;
 	private CCombo examplesCombo;
+	private ToolItem tltmLogin;
 
 	private GeoView geo = GeoView.getInstance();
 
@@ -87,18 +98,8 @@ public class AquabotsView extends Composite {
 
 		@Override
 		public void notifySessionChanged(SessionEvent event) {
-			if( list == null )
-				return;
-			list.removeAll();
-			for( WayPoint wp: model.getWayPoints() ){
-				list.add( wp.toLongLat());
-			}
-			if( list.getItemCount() > 5 )
-				list.remove(0);
-			refresh();
-			
-		}
-		
+			refresh();		
+		}	
 	};
 		
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
@@ -118,6 +119,16 @@ public class AquabotsView extends Composite {
 		}   	
 	};
 
+    private RdmLoginBean login = RdmLoginBean.getInstance();
+	private IAuthenticationListener authlistener = new IAuthenticationListener() {
+
+		@Override
+		public void notifyLoginChanged(AuthenticationEvent event) {
+			if( login.isLoggedin())
+				refresh();
+		}
+	};
+
 	/**
 	 * Create the composite.
 	 * @param parent
@@ -129,16 +140,51 @@ public class AquabotsView extends Composite {
 		this.model.addListener(listener);
 		this.history = new TrajectoryHistory();
 		this.createComposite(parent, style);
+
+		login.addLoginListener(authlistener);
 		this.session.addSessionListener(sl);
 		this.session.init( Display.getDefault());
 		this.session.start();
 	}
 
 	public void createComposite( Composite parent, int style ){
+		GridLayout gridLayout = new GridLayout(1, false);
+		gridLayout.verticalSpacing = 1;
+		setLayout(gridLayout);
+		new Label(this, SWT.NONE);
+		
+		ToolBar toolBar = new ToolBar(this, SWT.FLAT | SWT.RIGHT);
+		toolBar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		
+		tltmLogin = new ToolItem(toolBar, SWT.NONE);
+		tltmLogin.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 1L;
 
-		setLayout(new FillLayout(SWT.HORIZONTAL));
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if( login.isLoggedin() ){
+					login.clear();
+					return;
+				}
+				login.setUserName("Aquabots");	
+				try {
+					String jaasConfigFile = "data/jaas.cfg";
+					URL configUrl = Activator.getDefault().getBundle().getEntry( jaasConfigFile );
+					ILoginContext secureContext = LoginContextFactory.createContext( Activator.S_CONTEXT,
+							configUrl );
+					secureContext.login();
+					tltmLogin.setText(login.getText());
+				} catch( Exception ex ) {
+					//MessageDialog.openError(getShell(), "Fout bij inloggen", "Gebruiker en/of paswoord zijn incorrect. Probeer het opnieuw.");
+					ex.printStackTrace();
+				}				
+			}
+		});
+		tltmLogin.setText("Login");
+		new Label(this, SWT.NONE);
 
 		CTabFolder tabFolder = new CTabFolder(this, SWT.BORDER);
+		tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 
 		CTabItem tbtmRoute_1 = new CTabItem(tabFolder, SWT.NONE);
@@ -160,7 +206,7 @@ public class AquabotsView extends Composite {
 		Group grpAftica = new Group(composite, SWT.NONE);
 		grpAftica.setText("Aftica");
 		grpAftica.setLayout(new GridLayout(2, false));
-		GridData gd_grpAftica = new GridData(SWT.FILL, SWT.FILL, false, false, 4, 1);
+		GridData gd_grpAftica = new GridData(SWT.FILL, SWT.FILL, true, true, 4, 1);
 		gd_grpAftica.heightHint = 100;
 		grpAftica.setLayoutData(gd_grpAftica);
 
@@ -466,6 +512,14 @@ public class AquabotsView extends Composite {
 
 			@Override
 			public void run() {
+				if( list == null )
+					return;
+				list.removeAll();
+				for( WayPoint wp: model.getWayPoints() ){
+					list.add( wp.toLongLat());
+				}
+				if( list.getItemCount() > 15 )
+					list.remove(0);
 				list.update();
 				list.setSelection( list.getItemCount() - 1);
 				list.computeSize(list.getSize().x, SWT.DEFAULT);
@@ -485,8 +539,7 @@ public class AquabotsView extends Composite {
 	public void dispose() {
 		routes.stop();
 		this.socket.closeSocket();
-		//this.buffer.stop();
-		//this.session.removeSessionListener(sl);
+		login.removeLoginListener(authlistener);
 		this.model.removeListener(listener);
 		super.dispose();
 	}

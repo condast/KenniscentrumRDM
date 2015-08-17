@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +42,12 @@ public class MapServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		Enumeration<String> attrs = req.getParameterNames();
-		logger.info("DO GET " );
 		Map<String, String> map = new HashMap<String, String>();
 		while( attrs.hasMoreElements()){
 			String attr = attrs.nextElement();
 			map.put( attr, URLDecoder.decode( req.getParameter(attr), "UTF-8"));
 		}
+		logger.info("DO GET " + map.toString());
 		for( WayPoint waypoint: model.createWayPoints( map, Append.LAST )){
 			String str = map.get( Parameters.STYLE.toString().toLowerCase());
 			if( WayPoint.Styles.POINT.equals( WayPoint.Styles.valueOf( StringStyler.styleToEnum( str )) ))

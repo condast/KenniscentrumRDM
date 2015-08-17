@@ -15,13 +15,42 @@
    <extension
          point="org.eclipse.equinox.http.registry.servlets">
       <servlet
+            alias="/aquabots/authServlet"
+            class="org.rdm.aquabots.dashboard.authentication.AuthenticationServlet"
+            httpcontextId="org.rdm.aquabots.dashboard.httpcontext"
+            load-on-startup="true">
+      </servlet>
+      <servlet
             alias="/main/MapServlet"
             class="org.rdm.aquabots.dashboard.servlet.MapServlet">
       </servlet>
       <servlet
             alias="/main/BoatServlet"
-            class="org.rdm.aquabots.dashboard.servlet.BoatServlet">
+            class="org.rdm.aquabots.dashboard.model.boat.BoatServlet">
       </servlet>
    </extension>
-
-</plugin>
+   <extension
+          id="org.rdm.aquabots.dashboard.login"
+          name="Aquabots Login Module"
+          point="org.eclipse.equinox.security.loginModule">
+      <loginModule
+            class="org.rdm.aquabots.dashboard.authentication.RdmLoginModule"
+            description="Login module voor Aquabots">
+      </loginModule>
+   </extension>
+   <extension
+         id="org.rdm.aquabots.dashboard.login.callback"
+         name="CallBack Handler for Login"
+         point="org.eclipse.equinox.security.callbackHandler">
+      <callbackHandler
+            class="org.rdm.aquabots.dashboard.authentication.RdmCallbackHandler">
+      </callbackHandler>
+   </extension>
+   <extension
+         point="org.eclipse.equinox.security.callbackHandlerMapping">
+      <callbackHandlerMapping
+            callbackHandlerId="org.rdm.aquabots.dashboard.login.callback"
+            configName="AQUABOTS">
+      </callbackHandlerMapping>
+   </extension>
+ </plugin>

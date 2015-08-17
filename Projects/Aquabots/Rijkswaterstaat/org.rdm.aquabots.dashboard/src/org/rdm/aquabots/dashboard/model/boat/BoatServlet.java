@@ -1,4 +1,4 @@
-package org.rdm.aquabots.dashboard.servlet;
+package org.rdm.aquabots.dashboard.model.boat;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -14,15 +14,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.rdm.aquabots.dashboard.json.JsonUtils;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 
 public class BoatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public final String S_DATA = "data";
 	
-	private Logger logger = Logger.getLogger( this.getClass().getName() );
+	private BoatModel model = BoatModel.getInstance(); 
+	private BoatSession session = BoatSession.getInstance();
 	
+	private Logger logger = Logger.getLogger( this.getClass().getName() );
+
+	@Override
+	public void init() throws ServletException {
+		session.setModel(model);
+		super.init();
+	}
+
+	@Override
+	public void destroy() {
+		session.stop();
+		super.destroy();
+	}
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -51,7 +65,6 @@ public class BoatServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
 
