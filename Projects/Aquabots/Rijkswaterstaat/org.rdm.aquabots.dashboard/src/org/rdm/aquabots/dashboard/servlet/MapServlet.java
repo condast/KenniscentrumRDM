@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
+import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel.Append;
 import org.rdm.aquabots.dashboard.model.TrajectoryModel.Parameters;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
@@ -23,7 +23,7 @@ public class MapServlet extends HttpServlet {
 
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
 	
-	private TrajectoryModel model = TrajectoryModel.getInstance();
+	private CurrentBoat model = CurrentBoat.getInstance();
 	private MapSession session = MapSession.getInstance();
 	
 	@Override
@@ -48,10 +48,10 @@ public class MapServlet extends HttpServlet {
 			map.put( attr, URLDecoder.decode( req.getParameter(attr), "UTF-8"));
 		}
 		logger.info("DO GET " + map.toString());
-		for( WayPoint waypoint: model.createWayPoints( map, Append.LAST )){
+		for( WayPoint waypoint: model.getModel().getTrajectory().createWayPoints( map, Append.LAST )){
 			String str = map.get( Parameters.STYLE.toString().toLowerCase());
 			if( WayPoint.Styles.POINT.equals( WayPoint.Styles.valueOf( StringStyler.styleToEnum( str )) ))
-				model.addWayPoint(waypoint);
+				model.getModel().getTrajectory().addWayPoint(waypoint);
 		}
 		super.doGet(req, resp);
 	}

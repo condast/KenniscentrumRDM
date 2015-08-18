@@ -18,6 +18,6 @@
 
 	<servlet-mapping>
 		<servlet-name>rwtServlet</servlet-name>
-		<url-pattern>/aquabots</url-pattern>
+		<url-pattern>/voorz</url-pattern>
 	</servlet-mapping>
 </web-app>

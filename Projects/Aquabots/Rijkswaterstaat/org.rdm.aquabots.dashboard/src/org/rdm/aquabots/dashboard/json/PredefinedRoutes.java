@@ -8,7 +8,8 @@ import javax.json.JsonException;
 import javax.json.stream.JsonParser;
 
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Boats;
+import org.rdm.aquabots.dashboard.model.boat.BoatModel;
+import org.rdm.aquabots.dashboard.model.boat.IBoatModel;
 import org.rdm.aquabots.dashboard.model.boat.Path;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.LonLat;
@@ -108,7 +109,7 @@ public class PredefinedRoutes {
 	public static TrajectoryModel getTrajectory( Routes route ){
 		String str = getRoute( route );
 		StringReader reader = new StringReader( str );
-		TrajectoryModel model = null;
+		IBoatModel model = null;
 		JsonParser.Event event;
 		WayPoint waypoint = null;
 		String key = null;
@@ -127,10 +128,10 @@ public class PredefinedRoutes {
 	            case START_OBJECT:
 	                if( LonLat.isValid( key ))
 	                	lonlat++;
-	                WayPoint wp = setObject(key, model, lonlat);
+	                WayPoint wp = setObject(key, model.getTrajectory(), lonlat);
 	                if( wp != null ){
 	                	waypoint = wp;
-	                	model.addWayPoint(waypoint);
+	                	model.getTrajectory().addWayPoint(waypoint);
 	                }
 	                break;
 	            case END_OBJECT:
@@ -140,7 +141,7 @@ public class PredefinedRoutes {
 	                	lonlat = lonlat%2;
 	            	break;
 	            case VALUE_NUMBER:
-	                setNumberValues( key, model, waypoint, parser );
+	                setNumberValues( key, model.getTrajectory(), waypoint, parser );
 	                break;
 	            case VALUE_FALSE:
 	                break;
@@ -156,7 +157,7 @@ public class PredefinedRoutes {
 		catch (JsonException ex) {
 			return null;
 		}
-		return model;
+		return model.getTrajectory();
 	}		
 
     private static void setNumberValues( String keyName, TrajectoryModel model, WayPoint waypoint, JsonParser parser ) {
@@ -191,11 +192,11 @@ public class PredefinedRoutes {
         return null;
     }
 
-    private static TrajectoryModel setModel( String key, String value) {
-        TrajectoryModel model = null;
+    private static IBoatModel setModel( String key, String value) {
+        IBoatModel model = null;
          if( S_NAME.equals( key )){
             String str = StringStyler.styleToEnum(value);
-            model = TrajectoryModel.newTrajectory( Boats.valueOf(str));
+            model = new BoatModel( str );
          }else{
              logger.warning( S_WRN_UNKNOWN_KEY + key);   
         }

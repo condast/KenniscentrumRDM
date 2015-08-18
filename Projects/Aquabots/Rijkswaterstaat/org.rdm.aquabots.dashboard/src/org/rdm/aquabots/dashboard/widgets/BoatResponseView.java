@@ -6,15 +6,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.List;
-import org.rdm.aquabots.dashboard.model.boat.BoatSession;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.servlet.ISessionListener;
-import org.rdm.aquabots.dashboard.servlet.SessionEvent;
-import org.rdm.aquabots.dashboard.utils.AbstractUIJob;
 
 public class BoatResponseView extends Composite {
 
@@ -25,14 +19,6 @@ public class BoatResponseView extends Composite {
 	private Text srvLeftText;
 	private Text srvRightText;
 
-	private BoatSession session = BoatSession.getInstance();
-	private ISessionListener sl = new ISessionListener(){
-
-		@Override
-		public void notifySessionChanged(SessionEvent event) {
-			refresh();		
-		}	
-	};
 	/**
 	 * Create the composite.
 	 * @param parent
@@ -40,16 +26,8 @@ public class BoatResponseView extends Composite {
 	 */
 	public BoatResponseView(Composite parent, int style) {
 		super(parent, style);
-
-		this.createComposite(parent, style);
-
-		this.session.addSessionListener(sl);
-		this.session.init( Display.getDefault());
-		this.session.start();
-	}
-	
-	protected void createComposite( Composite parent, int style ){
 		setLayout(new GridLayout(2, false));
+		
 		Group grpGps = new Group(this, SWT.NONE);
 		grpGps.setLayout(new GridLayout(2, false));
 		GridData gd_grpGps = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -117,26 +95,6 @@ public class BoatResponseView extends Composite {
 		new Label(this, SWT.NONE);
 		new Label(this, SWT.NONE);
 
-	}
-	
-	/**
-	 * Refresh the UI
-	 */
-	public void refresh(){
-		Display.getDefault().asyncExec( new Runnable(){
-
-			@Override
-			public void run() {
-				layout();
-				update();
-				//try{
-				//  BrowserUtil.evaluate(browser, GeneralViewFunctions.refresh(), bcb );
-				//}
-				//catch( Exception ex ){
-				//	/* ignore */
-				//}
-			}	
-		});		
 	}
 
 	@Override

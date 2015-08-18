@@ -1,6 +1,5 @@
 package org.rdm.aquabots.dashboard.model.boat;
 
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class Command {
@@ -18,9 +17,9 @@ public class Command {
 	private String boat;
 	private Path path;
 	
-	public Command( TrajectoryModel trajectory ) {
-		this.path = new Path( trajectory );
-		this.boat = trajectory.getBoat();
+	public Command( IBoatModel model ) {
+		this.path = new Path( model.getTrajectory() );
+		this.boat = model.getName().toString();
 	}
 
 	public String getName() {

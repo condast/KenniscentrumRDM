@@ -1,19 +1,19 @@
 package org.rdm.aquabots.dashboard.servlet;
 
-import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
-import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
+import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
+import org.rdm.aquabots.dashboard.active.boat.CurrentBoatEvent;
+import org.rdm.aquabots.dashboard.active.boat.ICurrentBoatListener;
 import org.rdm.aquabots.dashboard.session.AbstractPushSession;
 
 public class MapSession extends AbstractPushSession {
 
-	private TrajectoryModel model;
+	private CurrentBoat model;
 	private boolean refresh = false;
-	private ITrajectoryListener listener = new ITrajectoryListener() {
+	private ICurrentBoatListener listener = new ICurrentBoatListener() {
 
 		@Override
-		public synchronized void notifyTrajectoryChanged( TrajectoryEvent event) {
-			Thread.currentThread().interrupt();
+		public void notifyStatusChanged(CurrentBoatEvent event) {
+			Thread.interrupted();
 			refresh = true;
 		}
 	};
@@ -24,11 +24,7 @@ public class MapSession extends AbstractPushSession {
 		return session;
 	}	
 	
-	public TrajectoryModel getModel() {
-		return model;
-	}
-
-	public void setModel(TrajectoryModel model) {
+	public void setModel(CurrentBoat model) {
 		this.model = model;
 		this.model.addListener(listener);
 	}

@@ -38,6 +38,9 @@ package org.rdm.aquabots.dashboard.authentication;
 * intended for use in the design, construction, operation or
 * maintenance of any nuclear facility.
 */
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 import javax.security.auth.*;
@@ -45,6 +48,7 @@ import javax.security.auth.callback.*;
 import javax.security.auth.login.*;
 import javax.security.auth.spi.*;
 
+import org.rdm.aquabots.dashboard.utils.IOUtils;
 import org.rdm.aquabots.dashboard.utils.authentication.DefaultPrincipal;
 
 /**
@@ -64,9 +68,13 @@ import org.rdm.aquabots.dashboard.utils.authentication.DefaultPrincipal;
 */
 public class RdmLoginModule implements LoginModule {
 
-	private static final String S_DEF_USERNAME = "Dave";
+	private static final String S_DEF_USERNAME = "Aquabots";
 
 	private static final String S_VOORZ_MODULE = "[VoorZLoginModule]";
+	private static final String S_AUTH_CONFIG = "/data/authentication.auth";
+	
+	private static final String S_ERR_INVALID_USERNAME = "User Name Incorrect";
+	private static final String S_ERR_INVALID_PASSWORD = "Password Incorrect";
 
 	// initial state
 	private Subject subject;
@@ -179,50 +187,13 @@ public class RdmLoginModule implements LoginModule {
 		}
 
 		// verify the username/password
-		boolean usernameCorrect = false;
-		boolean passwordCorrect = false;
-		if (username.equals( S_DEF_USERNAME ))
-			usernameCorrect = true;
-		if (usernameCorrect &&
-				password.length == 12 &&
-				password[0] == 't' &&
-				password[1] == 'e' &&
-				password[2] == 's' &&
-				password[3] == 't' &&
-				password[4] == 'P' &&
-				password[5] == 'a' &&
-				password[6] == 's' &&
-				password[7] == 's' &&
-				password[8] == 'w' &&
-				password[9] == 'o' &&
-				password[10] == 'r' &&
-				password[11] == 'd') {
-
-			// authentication succeeded!!!
-			passwordCorrect = true;
-			if (debug)
-				System.out.println("\t\t" + S_VOORZ_MODULE + 
-						"authentication succeeded");
-			succeeded = true;
+		URL url = RdmLoginModule.class.getResource( S_AUTH_CONFIG );
+		if( checkLogin(username, password, url )){
 			RdmLoginBean.getInstance().setUserName(username);
-			return passwordCorrect;
-		} else {
-
-			// authentication failed -- clean out state
-			if (debug)
-				System.out.println("\t\t" + S_VOORZ_MODULE + 
-						"authentication failed");
-			succeeded = false;
-			username = null;
-			for (int i = 0; i < password.length; i++)
-				password[i] = ' ';
-			password = null;
-			if (!usernameCorrect) {
-				throw new FailedLoginException("User Name Incorrect");
-			} else {
-				throw new FailedLoginException("Password Incorrect");
-			}
+			succeeded = true;
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -340,5 +311,104 @@ public class RdmLoginModule implements LoginModule {
 		}
 		userPrincipal = null;
 		return true;
+	}
+
+	/**
+	 * Checks the userName and password against a list of possibilities, from the given url
+	 * @param userName
+	 * @param password
+	 * @param url
+	 * @return
+	 * @throws LoginException, IOException
+	 */
+	public static boolean checkLogin( String userName, char[] password, boolean debug ) throws LoginException{
+		// verify the username/password
+		boolean usernameCorrect = false;
+		boolean passwordCorrect = false;
+		if (userName.equals( S_DEF_USERNAME ))
+			usernameCorrect = true;
+		if (usernameCorrect &&
+				password.length == 12 &&
+				password[0] == 't' &&
+				password[1] == 'e' &&
+				password[2] == 's' &&
+				password[3] == 't' &&
+				password[4] == 'P' &&
+				password[5] == 'a' &&
+				password[6] == 's' &&
+				password[7] == 's' &&
+				password[8] == 'w' &&
+				password[9] == 'o' &&
+				password[10] == 'r' &&
+				password[11] == 'd') {
+
+			// authentication succeeded!!!
+			passwordCorrect = true;
+			if (debug)
+				System.out.println("\t\t" + S_VOORZ_MODULE + 
+						"authentication succeeded");
+			return passwordCorrect;
+		} else {
+
+			// authentication failed -- clean out state
+			if (debug)
+				System.out.println("\t\t" + S_VOORZ_MODULE + 
+						"authentication failed");
+			userName = null;
+			for (int i = 0; i < password.length; i++)
+				password[i] = ' ';
+			password = null;
+			if (!usernameCorrect) {
+				throw new FailedLoginException("User Name Incorrect");
+			} else {
+				throw new FailedLoginException("Password Incorrect");
+			}
+		}
+	}
+	
+	/**
+	 * Checks the userName and password against a list of possibilities, from the given url
+	 * @param userName
+	 * @param password
+	 * @param url
+	 * @return
+	 * @throws FailedLoginException
+	 */
+	public static boolean checkLogin( String userName, char[] password, URL url ) throws LoginException{
+		InputStream in = null;
+		Scanner scanner = null;
+		boolean retval = false;
+		try{
+			in = url.openStream();
+			scanner = new Scanner( in );
+			while( scanner.hasNext() ){
+				String line = scanner.nextLine();
+				if( line.startsWith("#"))
+					continue;
+				line = line.replace(";", "");
+				line = line.replace(" ", "");
+				String[] split = line.split("[:]");
+				if(!userName.equals( split[0])){
+					throw new FailedLoginException( S_ERR_INVALID_USERNAME );
+				}
+				char[] pwd = split[1].toCharArray();
+				if( password.length != pwd.length )
+					throw new FailedLoginException( S_ERR_INVALID_PASSWORD );
+				for( int i=0; i<password.length; i++ ){
+					if( password[i] != pwd[i] )
+						throw new FailedLoginException( S_ERR_INVALID_PASSWORD );
+				}
+			}
+			retval = true;
+		}
+		catch( IOException ex ){
+			ex.printStackTrace();
+			throw new LoginException( ex.getMessage() );
+		}
+		finally{
+			scanner.close();
+			IOUtils.closeInputStream( in );
+		}
+		return retval;
 	}
 }

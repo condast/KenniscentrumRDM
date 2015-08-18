@@ -1,15 +1,18 @@
 package org.rdm.aquabots.dashboard.model.boat;
 
+import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
+import org.rdm.aquabots.dashboard.active.boat.CurrentBoatEvent;
+import org.rdm.aquabots.dashboard.active.boat.ICurrentBoatListener;
 import org.rdm.aquabots.dashboard.session.AbstractPushSession;
 
 public class BoatSession extends AbstractPushSession {
 
-	private BoatModel model;
+	private CurrentBoat model;
 	private boolean refresh = false;
-	private IBoatListener listener = new IBoatListener() {
+	private ICurrentBoatListener listener = new ICurrentBoatListener() {
 
 		@Override
-		public void notifyTrajectoryChanged(BoatEvent event) {
+		public void notifyStatusChanged(CurrentBoatEvent event) {
 			Thread.currentThread().interrupt();
 			refresh = true;
 		}
@@ -21,11 +24,7 @@ public class BoatSession extends AbstractPushSession {
 		return session;
 	}	
 	
-	public BoatModel getModel() {
-		return model;
-	}
-
-	public void setModel(BoatModel model) {
+	public void setModel( CurrentBoat model) {
 		this.model = model;
 		this.model.addListener(listener);
 	}

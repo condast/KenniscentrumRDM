@@ -12,6 +12,7 @@ import javax.json.stream.JsonParser;
 
 import org.rdm.aquabots.dashboard.model.TrajectoryModel;
 import org.rdm.aquabots.dashboard.model.boat.Command;
+import org.rdm.aquabots.dashboard.model.boat.IBoatModel;
 import org.rdm.aquabots.dashboard.model.boat.Path;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.LonLat;
@@ -51,8 +52,9 @@ public class JsonUtils {
 	 * @param waypoint
 	 * @return
 	 */
-	public static JsonObject createJsonTrajectory( TrajectoryModel trajectory ){
-        if( trajectory == null )
+	public static JsonObject createJsonTrajectory( IBoatModel boat ){
+        TrajectoryModel trajectory = boat.getTrajectory();
+		if( trajectory == null )
         	return null;
 		JsonArrayBuilder waypointsBuilder = Json.createArrayBuilder();
 
@@ -63,7 +65,7 @@ public class JsonUtils {
 		JsonObjectBuilder tBuilder = Json.createObjectBuilder();
 
 		tBuilder.add( TrajectoryModel.Attributes.ID.toString(), trajectory.getID())
-   			.add( toLowerCase( TrajectoryModel.Attributes.BOAT ), trajectory.getBoat() )
+   			.add( toLowerCase( TrajectoryModel.Attributes.BOAT ), boat.getName().toString() )
    			.add( toLowerCase( TrajectoryModel.Attributes.ARGUMENTS ), waypointsBuilder );
 		return tBuilder.build();
 	}
@@ -96,15 +98,13 @@ public class JsonUtils {
 	 * @param waypoint
 	 * @return
 	 */
-	public static JsonObject createCommand( TrajectoryModel trajectory ){
-        if( trajectory == null )
-        	return null;
-        Command command = new Command( trajectory ); 
+	public static JsonObject createCommand( IBoatModel model ){
+       Command command = new Command( model ); 
 
 		JsonObjectBuilder tBuilder = Json.createObjectBuilder();
 
 		tBuilder.add( Command.Attributes.NAME.toString(), command.getName() )
-   			.add( Command.Attributes.PATH.toString(), createJsonPath( trajectory ) );
+   			.add( Command.Attributes.PATH.toString(), createJsonPath( model.getTrajectory() ) );
 		return tBuilder.build();
 	}
 	public String toString( JsonObject jo ){
@@ -115,8 +115,8 @@ public class JsonUtils {
 		return "wsSend( " + jo.toString() + ")";
 	}
 
-	public static String sendMessage( TrajectoryModel trajectory ){
-		return sendMessage( createCommand(trajectory));
+	public static String sendMessage( IBoatModel model ){
+		return sendMessage( createCommand( model ));
 	}
 
 	public static String toLowerCase( TrajectoryModel.Attributes attr ){

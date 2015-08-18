@@ -5,7 +5,6 @@ import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
 import org.rdm.aquabots.dashboard.json.JsonUtils;
 
 public class BoatServlet extends HttpServlet {
@@ -20,14 +20,12 @@ public class BoatServlet extends HttpServlet {
 
 	public final String S_DATA = "data";
 	
-	private BoatModel model = BoatModel.getInstance(); 
+	private CurrentBoat model = CurrentBoat.getInstance(); 
 	private BoatSession session = BoatSession.getInstance();
 	
-	private Logger logger = Logger.getLogger( this.getClass().getName() );
-
 	@Override
 	public void init() throws ServletException {
-		session.setModel(model);
+		session.setModel(model );
 		super.init();
 	}
 

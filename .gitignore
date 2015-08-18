@@ -3,6 +3,7 @@ bin/
 # Ignore all files ending with ~
 *~
 *.class
+Thumbs.db
 # Ignore the target directory
 # Matches "target" in any subfolder.ant.properties
 target/ 

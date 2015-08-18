@@ -7,8 +7,6 @@ import java.util.concurrent.Executors;
 
 import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.widgets.Display;
-import org.rdm.aquabots.dashboard.servlet.ISessionListener;
-import org.rdm.aquabots.dashboard.servlet.SessionEvent;
 
 public abstract class AbstractPushSession {
 
@@ -28,7 +26,7 @@ public abstract class AbstractPushSession {
 		public void run() {
 			while(!runSession()){
 				try{
-					Thread.sleep( 500 );
+					Thread.sleep( 5000 );
 				}
 				catch( InterruptedException ex ){
 					ex.printStackTrace();
