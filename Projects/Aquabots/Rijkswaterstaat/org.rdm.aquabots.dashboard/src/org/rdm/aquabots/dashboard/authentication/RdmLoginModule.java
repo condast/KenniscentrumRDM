@@ -43,10 +43,15 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
-import javax.security.auth.*;
-import javax.security.auth.callback.*;
-import javax.security.auth.login.*;
-import javax.security.auth.spi.*;
+import javax.security.auth.Subject;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
+import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.security.auth.login.FailedLoginException;
+import javax.security.auth.login.LoginException;
+import javax.security.auth.spi.LoginModule;
 
 import org.rdm.aquabots.dashboard.utils.IOUtils;
 import org.rdm.aquabots.dashboard.utils.authentication.DefaultPrincipal;
@@ -114,11 +119,11 @@ public class RdmLoginModule implements LoginModule {
 	 * @param options options specified in the login
 	 *                  <code>Configuration</code> for this particular
 	 *                  <code>LoginModule</code>.
-	 */
+	 */	
 	public void initialize(Subject subject,
 			CallbackHandler callbackHandler,
-			Map<java.lang.String, ?> sharedState,
-			Map<java.lang.String, ?> options) {
+			Map sharedState,
+			Map options) {
 
 		this.subject = subject;
 		this.callbackHandler = callbackHandler;
