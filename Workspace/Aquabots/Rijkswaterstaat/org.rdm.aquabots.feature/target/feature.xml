@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.rdm.aquabots.feature"
+      label="Aquabots Feature"
+      version="1.0.0.201508251055"
+      provider-name="Kenniscentrum RDM">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.rap.rwt" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.equinox.http.registry"/>
+      <import plugin="org.eclipse.rap.ui"/>
+      <import plugin="org.glassfish.javax.json"/>
+      <import plugin="javax.servlet"/>
+   </requires>
+
+   <plugin
+         id="org.rdm.aquabots.dashboard"
+         download-size="177"
+         install-size="352"
+         version="1.0.0.201508251055"
+         unpack="false"/>
+
+</feature>

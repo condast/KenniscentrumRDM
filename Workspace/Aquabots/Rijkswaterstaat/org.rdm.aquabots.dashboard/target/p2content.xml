@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='org.rdm.aquabots.dashboard' version='1.0.0.201508251055'>
+    <update id='org.rdm.aquabots.dashboard' range='[0.0.0,1.0.0.201508251055)' severity='0'/>
+    <properties size='5'>
+      <property name='org.eclipse.equinox.p2.name' value='Aquabots Dashboard'/>
+      <property name='org.eclipse.equinox.p2.provider' value='Kenniscentrum RDM'/>
+      <property name='maven-groupId' value='org.rdm.aquabots'/>
+      <property name='maven-artifactId' value='org.rdm.aquabots.dashboard'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.dashboard' version='1.0.0.201508251055'/>
+      <provided namespace='osgi.bundle' name='org.rdm.aquabots.dashboard' version='1.0.0.201508251055'/>
+      <provided namespace='java.package' name='org.rdm.aquabots.dashboard.authentication' version='0.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='19'>
+      <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='3.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.rap.ui' range='2.3.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.rap.jface' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.osgi' range='0.0.0'/>
+      <required namespace='java.package' name='javax.json' range='1.0.0'/>
+      <required namespace='java.package' name='javax.json.stream' range='1.0.0'/>
+      <required namespace='java.package' name='javax.servlet' range='2.6.0'/>
+      <required namespace='java.package' name='javax.servlet.http' range='2.6.0'/>
+      <required namespace='java.package' name='org.apache.commons.codec' range='1.6.0'/>
+      <required namespace='java.package' name='org.apache.commons.codec.binary' range='1.6.0'/>
+      <required namespace='java.package' name='org.eclipse.equinox.security.auth' range='1.0.0'/>
+      <required namespace='java.package' name='org.eclipse.jface' range='0.0.0'/>
+      <required namespace='java.package' name='org.eclipse.jface.resource' range='0.0.0'/>
+      <required namespace='java.package' name='org.eclipse.rap.rwt' range='2.3.0'/>
+      <required namespace='java.package' name='org.eclipse.rap.rwt.application' range='2.3.0'/>
+      <required namespace='java.package' name='org.eclipse.rap.rwt.client' range='2.3.0'/>
+      <required namespace='java.package' name='org.eclipse.rap.rwt.service' range='2.3.0'/>
+      <required namespace='java.package' name='org.eclipse.rap.rwt.widgets' range='2.3.0'/>
+      <required namespace='java.package' name='org.osgi.service.http' range='1.2.1'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='org.rdm.aquabots.dashboard' version='1.0.0.201508251055'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: org.rdm.aquabots.dashboard;singleton:=true&#xA;Bundle-Version: 1.0.0.201508251055&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

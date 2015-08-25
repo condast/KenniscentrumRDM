@@ -1,0 +1,31 @@
+Label{
+	background-color: transparent;
+	color: rgb( 255, 255, 255 );
+}
+
+Label.customLabel {
+  font: italic 16px Arial;
+  text-shadow: 2px 2px #bbbbbb;
+  text-decoration: underline;
+}
+
+CTabItem.trajectoryItem {
+  background-color: #123456;
+}
+
+Composite{
+  background-color: #123456;
+}
+
+Button[PUSH]{
+	background-color: transparent;
+	color: rgb( 255, 255, 255 );
+}
+
+ToolBar.toolbar{
+	background-color: transparent;
+}
+
+Group{
+	background-color: transparent;
+}

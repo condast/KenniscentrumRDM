@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Aquabots Dashboard
+Bundle-SymbolicName: org.rdm.aquabots.dashboard;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Kenniscentrum RDM
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Service-Component: OSGI-INF/contribution.xml
+Web-ContextPath: /aquabots
+Import-Package: javax.json;version="1.0.0",
+ javax.json.stream;version="1.0.0",
+ javax.servlet;version="2.0.0",
+ javax.servlet.http;version="2.0.0",
+ org.apache.commons.codec;version="[1.0.0,2.0.0)",
+ org.apache.commons.codec.binary;version="[1.0.0,2.0.0)",
+ org.eclipse.equinox.security.auth;version="1.0.0",
+ org.eclipse.jface,
+ org.eclipse.jface.resource,
+ org.eclipse.rap.rwt;version="2.3.0",
+ org.eclipse.rap.rwt.application;version="2.3.0",
+ org.eclipse.rap.rwt.client;version="2.3.0",
+ org.eclipse.rap.rwt.service;version="2.3.0",
+ org.eclipse.rap.rwt.widgets;version="2.3.0",
+ org.osgi.service.http;version="1.0.0"
+Bundle-ClassPath: .
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.0.0",
+ org.eclipse.rap.ui;bundle-version="2.3.0",
+ org.eclipse.rap.jface,
+ org.eclipse.osgi
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.rdm.aquabots.dashboard.Activator
+Export-Package: org.rdm.aquabots.dashboard.authentication
