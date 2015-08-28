@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.rdm.aquabots.dashboard.utils.ImageResources;
+import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.rdm.authentication.core.AbstractLoginDialog;
 
 
@@ -43,7 +45,8 @@ public class RdmCallbackHandler extends AbstractLoginDialog {
 
 	  @Override
 	protected Control createDialogArea( Composite parent ) {
-	    Composite dialogarea = ( Composite )super.createDialogArea( parent );
+	    super.setTitleImage( ImageResources.getInstance().getImage( Images.AQUABOTS3 ));
+		Composite dialogarea = ( Composite )super.createDialogArea( parent );
 	    dialogarea.setLayoutData( new GridData( GridData.FILL_BOTH ) );
 	    Composite composite = new Composite( dialogarea, SWT.NONE );
 	    composite.setLayout( new GridLayout( 2, false ) );
@@ -119,13 +122,11 @@ public class RdmCallbackHandler extends AbstractLoginDialog {
 
 	@Override
 	protected void cancelPressed() {
-		// TODO Auto-generated method stub
 		super.cancelPressed();
 	}
 
 	@Override
 	protected void okPressed() {
-		// TODO Auto-generated method stub
 		super.okPressed();
 	}
 

@@ -458,6 +458,16 @@ public class AquabotsView extends Composite {
 
 		Button btnAppend = new Button(grpDraw, SWT.NONE);
 		btnAppend.setText("Append");
+		btnAppend.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String rect = GeoView.fillBounds();
+				BrowserUtil.evaluate(browser, rect, bcb );   
+			}
+		});
+
 
 		Button btnStopoverride = new Button(grpDraw, SWT.NONE);
 		btnStopoverride.setText("Stop");
@@ -496,6 +506,19 @@ public class AquabotsView extends Composite {
 		//bathycanvas = new BathymetryCanvas( composite_3, SWT.NONE); 
 		Label drw = new Label( composite_3, SWT.NONE );
 		drw.setImage( ImageResources.getInstance().getImage( Images.DEPTH ));
+		
+		CTabItem tbtmNewItem = new CTabItem(tabFolder, SWT.NONE);
+		tbtmNewItem.setText("Turbility");
+		
+		Composite composite_5 = new Composite(tabFolder, SWT.NONE);
+		tbtmNewItem.setControl(composite_5);
+		composite_5.setLayout(new GridLayout(1, false));
+		
+		Label lblNewLabel = new Label(composite_5, SWT.NONE);
+		lblNewLabel.setText("New Label");
+		
+		Composite turbilityCanvas = new Composite(composite_5, SWT.NONE);
+		turbilityCanvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		//Browser echoBrowser = new Browser(tabFolder, SWT.NONE);
 		//tbtmBathymetry.setControl(echoBrowser);
@@ -507,6 +530,7 @@ public class AquabotsView extends Composite {
 		tbtmSystem.setControl( boatComposite);
 
 		tabFolder.setSelection(0);
+		GeoView.getInstance().jump();
 	}
 
 	@Override

@@ -16,6 +16,11 @@ public class ImageResources extends AbstractImages{
 
 	public static final String S_BUNDLE_ID = "org.rdm.aquabots.dashboard";
 	public static final String S_RESOURCES = "/resources/";
+
+	public static final String S_AQUABOTS = "aquabots.png";
+	public static final String S_AQUABOTS2 = "aquabots2.png";
+	public static final String S_AQUABOTS3 = "aquabots3.png";
+
 	public static final String S_DOUBLE_ARROW = "double-arrow-";
 	public static final String S_BATHYMETRY = "depth.jpg";
 
@@ -23,6 +28,9 @@ public class ImageResources extends AbstractImages{
 	public static final String S_ZOOM_OUT = "zoom-out";
 
 	public enum Images{
+		AQUABOTS,
+		AQUABOTS2,
+		AQUABOTS3,
 		UP,
 		DOWN,
 		LEFT,
@@ -34,6 +42,15 @@ public class ImageResources extends AbstractImages{
 		public static String getFile( Images image ){
 			StringBuffer buffer = new StringBuffer();
 			switch( image ){		
+			case AQUABOTS:
+				buffer.append( S_AQUABOTS );
+				break;
+			case AQUABOTS2:
+				buffer.append( S_AQUABOTS2 );
+				break;
+			case AQUABOTS3:
+				buffer.append( S_AQUABOTS3 );
+				break;
 			case UP:
 				buffer.append( S_DOUBLE_ARROW );
 				buffer.append( image.name().toLowerCase());
@@ -86,6 +103,9 @@ public class ImageResources extends AbstractImages{
 
 	@Override
 	public void initialise(){
+		setImage( Images.AQUABOTS );
+		setImage( Images.AQUABOTS2 );
+		setImage( Images.AQUABOTS3 );
 		setImage( Images.UP );
 		setImage( Images.LEFT );
 		setImage( Images.DOWN );

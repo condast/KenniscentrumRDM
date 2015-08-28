@@ -1,5 +1,8 @@
 package org.rdm.aquabots.dashboard.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class GeoView {
@@ -54,6 +57,8 @@ public class GeoView {
 	private float latitude;
 	private int zoom;
 	
+	private Collection<Rectangle> bounds;
+	
 	private static GeoView geoView = new GeoView();
 	
 	private GeoView() {
@@ -61,7 +66,7 @@ public class GeoView {
 		zoom = DEF_ZOOM;
 		this.longtitude = DEF_LONGTITUDE;
 		this.latitude = DEF_LATITUDE;
-		
+		bounds = new ArrayList<Rectangle>();
 	}
 	
 	public static GeoView getInstance(){
@@ -145,6 +150,27 @@ public class GeoView {
 		return "jump(" + this.longtitude + ", " + this.latitude + ");";
 	}
 	
+	public String addExtend( Rectangle rectangle ){
+		this.bounds.add( rectangle );
+		return "drawBorder" + rectangle.toString();
+	}
+
+	public String removedExtend( Rectangle rectangle ){
+		this.bounds.remove( rectangle );
+		return "drawBorder" + rectangle.toString();
+	}
+
+	/**
+	 * fill the bounds of openlayer
+	 * @return
+	 */
+	public static String fillBounds(){
+		GeoView geo = GeoView.getInstance();
+		Rectangle first = new Rectangle(6.15388f, 6.15340f, 52.24966f, 52.24970f );
+		String retval = geo.addExtend(first) + ";";
+		return retval;
+	}
+	
 	/**
 	 * Create a GeoView from the given lonlat string ([lon,lat])
 	 * @param lonlatStr
@@ -168,5 +194,4 @@ public class GeoView {
 		geoView.setLocation(location.toString());
 		return createGeoView(lonlat);
 	}
-
 }

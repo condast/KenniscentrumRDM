@@ -120,6 +120,7 @@ public class RdmLoginModule implements LoginModule {
 	 *                  <code>Configuration</code> for this particular
 	 *                  <code>LoginModule</code>.
 	 */	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initialize(Subject subject,
 			CallbackHandler callbackHandler,
 			Map sharedState,
