@@ -1,6 +1,4 @@
-package org.rdm.aquabots.dashboard.authentication;
-
-import org.rdm.authentication.core.AbstractLoginBean;
+package org.rdm.aquabots.authentication;
 
 public class RdmLoginBean extends AbstractLoginBean{
 

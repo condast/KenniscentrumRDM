@@ -16,7 +16,7 @@ public class BoatModel implements IBoatModel {
 	private String name;
 	private URL url;
 	
-	private TrajectoryModel model;
+	private TrajectoryModel trajectory;
 	private Collection<WayPoint> waypoints;
 	
 	private Collection<ICurrentBoatListener> listeners;
@@ -25,10 +25,10 @@ public class BoatModel implements IBoatModel {
 
 	public BoatModel( String name) {
 		this.name = name;
-		model = new TrajectoryModel();
 		listeners = new ArrayList<ICurrentBoatListener>();
 		waypoints = new ArrayList<WayPoint>();
 		this.history = new TrajectoryHistory();
+		trajectory = this.createTrajectory();
 	}
 
 	public BoatModel( String name, String url) throws MalformedURLException {
@@ -70,7 +70,7 @@ public class BoatModel implements IBoatModel {
 	 * @return
 	 */
 	public TrajectoryModel getTrajectory(){
-		return model;
+		return trajectory;
 	}
 	
 	public WayPoint[] getTrip(){
@@ -79,11 +79,8 @@ public class BoatModel implements IBoatModel {
 	
 	@Override
 	public TrajectoryModel createTrajectory(){
-		TrajectoryModel result = model.createTrajectory();
-		if( result == null )
-			return null;
-		history.addTrajectory( result );
-		return result;
-
+		trajectory = new TrajectoryModel();
+		history.addTrajectory( trajectory );
+		return trajectory;
 	}
 }

@@ -43,9 +43,9 @@ public class WayPointManager {
 	};
 	private Collection<IWayPointManagerListener> listeners;
 	
-	private static WayPointManager manager = new WayPointManager();
+	//private static WayPointManager manager = new WayPointManager();
 
-	private WayPointManager() {
+	public WayPointManager() {
 		this.started = false;
 		waypoints = new LinkedList<WayPoint>();
 		service = Executors.newCachedThreadPool();
@@ -53,9 +53,6 @@ public class WayPointManager {
 		listeners = new ArrayList<IWayPointManagerListener>();
 	}
 
-	public static WayPointManager getInstance(){
-		return manager;
-	}
 	public void addListener( IWayPointManagerListener listener){
 		this.listeners.add( listener );
 	}

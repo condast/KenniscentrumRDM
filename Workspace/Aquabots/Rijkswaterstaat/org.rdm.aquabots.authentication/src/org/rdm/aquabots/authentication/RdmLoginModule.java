@@ -1,4 +1,4 @@
-package org.rdm.aquabots.dashboard.authentication;
+package org.rdm.aquabots.authentication;
 
 /*
 *
@@ -53,8 +53,8 @@ import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
-import org.rdm.aquabots.dashboard.utils.IOUtils;
 import org.rdm.authentication.core.DefaultPrincipal;
+import org.rdm.dashboard.utils.IOUtils;
 
 /**
 * <p> This sample LoginModule authenticates users with a password.
@@ -134,17 +134,6 @@ public class RdmLoginModule implements LoginModule {
 		debug = "true".equalsIgnoreCase((String)options.get("debug"));
 	}
 
-	
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
 	/**
 	 * Authenticate the user by prompting for a user name and password.
 	 *
@@ -161,11 +150,9 @@ public class RdmLoginModule implements LoginModule {
 	public boolean login() throws LoginException {
 
 		// prompt for a user name and password
-		if (callbackHandler == null){
-			this.callbackHandler = new RdmCallbackHandler();
-			//throw new LoginException("Error: no CallbackHandler available " +
-			//		"to garner authentication information from the user");
-		}
+		if (callbackHandler == null)
+			throw new LoginException("Error: no CallbackHandler available " +
+					"to garner authentication information from the user");
 
 		Callback[] callbacks = new Callback[2];
 		callbacks[0] = new NameCallback("user name: ");

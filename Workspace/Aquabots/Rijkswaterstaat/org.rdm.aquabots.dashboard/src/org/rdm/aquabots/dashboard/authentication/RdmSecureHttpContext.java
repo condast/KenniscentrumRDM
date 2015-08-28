@@ -5,7 +5,7 @@ import java.net.URL;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.rdm.aquabots.dashboard.Activator;
-import org.rdm.aquabots.dashboard.utils.authentication.AbstractSecureHttpContext;
+import org.rdm.authentication.core.AbstractSecureHttpContext;
 
 public class RdmSecureHttpContext extends AbstractSecureHttpContext {
 

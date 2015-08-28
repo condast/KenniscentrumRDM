@@ -96,14 +96,6 @@ public class CurrentBoat {
 	}
 	
 	/**
-	 * Create a trajectory for the current model
-	 */
-	public void createTrajectory(){
-		IBoatModel model = this.getModel();
-		model.createTrajectory();
-	}
-
-	/**
 	 * Get the boat names
 	 * @return
 	 */
@@ -140,7 +132,8 @@ public class CurrentBoat {
 			throw new LoginException( ex.getMessage() );
 		}
 		finally{
-			scanner.close();
+			if( scanner != null )
+				scanner.close();
 			IOUtils.closeInputStream( in );
 		}
 		return retval;

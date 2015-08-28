@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.rdm.aquabots.dashboard.utils.authentication.AbstractLoginDialog;
+import org.rdm.authentication.core.AbstractLoginDialog;
 
 
 /**

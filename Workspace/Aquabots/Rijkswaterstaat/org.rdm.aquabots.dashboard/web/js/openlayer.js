@@ -128,6 +128,42 @@ function zoomin(){
 
 function zoomout(){
     view.setZoom( view.getZoom() + 1);
-}          
+} 
+
+function drawBorder( top, bottom){
+	var map, bounds, coords, defaults;
+	var mapnik = new OpenLayers.Layer.OSM();
+	defaults = {
+			n : 50.930985,
+			s : 50.9301,
+			w : 11.58725,
+			e : 11.58825
+	};
+	coords = $.extend(defaults, param);
+	bounds = new OpenLayers.Bounds();
+	bounds.extend(new OpenLayers.LonLat(coords.w, coords.s));
+	bounds.extend(new OpenLayers.LonLat(coords.e, coords.n));
+	bounds.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+	map = new OpenLayers.Map("map");
+	if ((coords.s == coords.n) && (coords.w == coords.e)) {
+		var marker = new OpenLayers.Layer.Markers("marker");
+		var size = new OpenLayers.Size(21, 25);
+		var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+		var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
+		marker.addMarker(new OpenLayers.Marker(bounds.getCenterLonLat(), icon));
+		map.addLayer(marker);
+		// Note that if you pass an icon into the Marker constructor, it will
+		// take that icon and use it. This means that you should not share icons
+		// between markers -- you use them once, but you should clone() for any
+		// additional markers using that same icon.
+	} else {
+		var boxes = new OpenLayers.Layer.Boxes("Boxes");
+		var box = new OpenLayers.Marker.Box(bounds, "#008DCF", 4);
+		boxes.addMarker(box);
+		map.addLayer(boxes);
+	}
+	map.addLayer(mapnik);
+	map.zoomToExtent(bounds);
+}
 
 initInteraction();

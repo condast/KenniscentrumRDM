@@ -49,6 +49,7 @@ public class GeoView {
 	public static final float DEF_HORIZONTAL = 0.001f;
 	public static final float DEF_VERTICAL = 0.001f;
 	
+	private String location;//optional
 	private float longtitude;
 	private float latitude;
 	private int zoom;
@@ -65,6 +66,18 @@ public class GeoView {
 	
 	public static GeoView getInstance(){
 		return geoView;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public boolean hasLocation(){
+		return (location != null);
 	}
 	public float getLongtitude() {
 		return longtitude;
@@ -131,4 +144,29 @@ public class GeoView {
 	public String jump(){
 		return "jump(" + this.longtitude + ", " + this.latitude + ");";
 	}
+	
+	/**
+	 * Create a GeoView from the given lonlat string ([lon,lat])
+	 * @param lonlatStr
+	 * @return
+	 */
+	public static GeoView createGeoView( String lonlat ){
+		lonlat = lonlat.replace("]", "");
+		String[] split = lonlat.split("[,]");
+		geoView.setLongtitude( Float.parseFloat( split[0]));
+		geoView.setLatitude( Float.parseFloat( split[1]));
+		return geoView;
+	}
+
+	/**
+	 * Create a GeoView from the given lonlat string ([lon,lat])
+	 * @param lonlatStr
+	 * @return
+	 */
+	public static GeoView createGeoView( Location location ){
+		String lonlat = location.toLonLat().replace("[", "");
+		geoView.setLocation(location.toString());
+		return createGeoView(lonlat);
+	}
+
 }

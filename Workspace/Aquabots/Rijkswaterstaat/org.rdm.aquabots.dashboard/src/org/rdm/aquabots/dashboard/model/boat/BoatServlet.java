@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.json.JsonObject;
 import javax.servlet.ServletException;
@@ -22,6 +23,8 @@ public class BoatServlet extends HttpServlet {
 	
 	private CurrentBoat model = CurrentBoat.getInstance(); 
 	private BoatSession session = BoatSession.getInstance();
+	
+	private Logger logger = Logger.getLogger( this.getClass().getName() );
 	
 	@Override
 	public void init() throws ServletException {

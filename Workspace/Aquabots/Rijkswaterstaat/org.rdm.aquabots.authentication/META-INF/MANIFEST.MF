@@ -4,6 +4,7 @@ Bundle-Name: Authentication of RDM
 Bundle-SymbolicName: org.rdm.aquabots.authentication;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Research Centre RDM
-Fragment-Host: system.bundle;bundle-version="1.2.0.v20130424-1801"
+Fragment-Host: system.bundle;extension:=framework
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.rdm.aquabots.dashboard.authentication
+Import-Package: org.rdm.authentication.core
+Export-Package: org.rdm.aquabots.authentication

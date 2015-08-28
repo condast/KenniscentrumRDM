@@ -11,7 +11,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPointManager;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class TrajectoryModel {
@@ -76,7 +75,6 @@ public class TrajectoryModel {
 
 	private Vector<WayPoint> waypoints;
 	private int active;
-	private WayPointManager manager = WayPointManager.getInstance();
 
 	private Collection<ITrajectoryListener> listeners;
 
@@ -90,15 +88,6 @@ public class TrajectoryModel {
 		this.listeners = new ArrayList<ITrajectoryListener>();
 		this.lock = new ReentrantLock();
 		this.id = this.hashCode();
-	}
-
-	private TrajectoryModel( int id, Vector<WayPoint> waypoints ) {
-		this.id = id;
-		this.time = Calendar.getInstance().getTimeInMillis();
-		this.waypoints = waypoints;
-		this.active = 0;
-		this.listeners = new ArrayList<ITrajectoryListener>();
-		this.lock = new ReentrantLock();
 	}
 
 	public int getID(){
@@ -152,7 +141,6 @@ public class TrajectoryModel {
 				return;
 			this.last = waypoint;
 			this.waypoints.add( waypoint );
-			manager.addWayPoint(waypoint);
 			waypoint.setEvent( WayPoint.WayPointEvents.APPENDED );
 			this.notifyListeners( waypoint );
 		}
@@ -305,20 +293,6 @@ public class TrajectoryModel {
 			return super.toString();
 		String str = this.waypoints.get(0).toLongLat() + ":" + time;
 		return str;
-	}
-
-	public TrajectoryModel createTrajectory(){
-		this.lock.lock();
-		try{
-			if( this.waypoints.isEmpty())
-				return null;
-			Vector<WayPoint> wps = new Vector<WayPoint>( this.waypoints);
-			this.waypoints.clear();
-			return new TrajectoryModel( id, wps );
-		}
-		finally{
-			lock.unlock();
-		}
 	}
 	
 	public int size(){
