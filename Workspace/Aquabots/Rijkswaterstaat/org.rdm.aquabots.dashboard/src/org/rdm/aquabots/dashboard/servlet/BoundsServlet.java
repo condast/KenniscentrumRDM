@@ -13,18 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Append;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Parameters;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.utils.StringStyler;
+import org.rdm.aquabots.dashboard.model.boat.BoatSession;
 
-public class MapServlet extends HttpServlet {
+public class BoundsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private Logger logger = Logger.getLogger( this.getClass().getName() );
 	
 	private CurrentBoat model = CurrentBoat.getInstance();
-	private MapSession session = MapSession.getInstance();
+	private BoatSession session = BoatSession.getInstance();
 	
 	@Override
 	public void init() throws ServletException {
@@ -47,12 +44,7 @@ public class MapServlet extends HttpServlet {
 			String attr = attrs.nextElement();
 			map.put( attr, URLDecoder.decode( req.getParameter(attr), "UTF-8"));
 		}
-		logger.info("DO GET " + map.toString());
-		for( WayPoint waypoint: model.getModel().getTrajectory().createWayPoints( map, Append.LAST )){
-			String str = map.get( Parameters.STYLE.toString().toLowerCase());
-			if( WayPoint.Styles.POINT.equals( WayPoint.Styles.valueOf( StringStyler.styleToEnum( str )) ))
-				model.getModel().getTrajectory().addWayPoint(waypoint);
-		}
+		logger.info("DO GET BOUNDS" + map.toString());
 		super.doGet(req, resp);
 	}
 

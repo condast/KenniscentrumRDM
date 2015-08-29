@@ -1,6 +1,7 @@
-package org.rdm.aquabots.dashboard.widgets;
+package org.rdm.aquabots.dashboard.model.boat;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.SWT;
@@ -9,6 +10,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.List;
+import org.rdm.aquabots.dashboard.map.MapSession;
+import org.rdm.aquabots.dashboard.model.TrajectoryModel;
+import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.session.ISessionListener;
+import org.rdm.aquabots.dashboard.session.SessionEvent;
 
 public class BoatResponseView extends Composite {
 
@@ -19,6 +25,15 @@ public class BoatResponseView extends Composite {
 	private Text srvLeftText;
 	private Text srvRightText;
 
+	private BoatSession session = BoatSession.getInstance();
+	private ISessionListener sl = new ISessionListener(){
+
+		@Override
+		public void notifySessionChanged(SessionEvent event) {
+			refresh();		
+		}	
+	};
+
 	/**
 	 * Create the composite.
 	 * @param parent
@@ -26,6 +41,13 @@ public class BoatResponseView extends Composite {
 	 */
 	public BoatResponseView(Composite parent, int style) {
 		super(parent, style);
+		this.createComposite(parent, style);
+		this.session.addSessionListener(sl);
+		this.session.init( Display.getDefault());
+		this.session.start();
+	}
+	
+	protected void createComposite( Composite parent, int style ){
 		setLayout(new GridLayout(2, false));
 		
 		Group grpGps = new Group(this, SWT.NONE);
@@ -101,4 +123,28 @@ public class BoatResponseView extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
+
+	/**
+	 * Refresh the UI
+	 */
+	public void refresh(){
+		Display display = Display.getDefault();
+		if( display.isDisposed() )
+			return;
+		display.asyncExec( new Runnable(){
+
+			@Override
+			public void run() {
+				//layout();
+				//update();
+			}	
+		});		
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+	}	
+
+
 }

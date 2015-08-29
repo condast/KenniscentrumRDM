@@ -152,12 +152,12 @@ public class GeoView {
 	
 	public String addExtend( Rectangle rectangle ){
 		this.bounds.add( rectangle );
-		return "drawBorder" + rectangle.toString();
+		return "drawBorder" + rectangle.toString() + ";";
 	}
 
 	public String removedExtend( Rectangle rectangle ){
 		this.bounds.remove( rectangle );
-		return "drawBorder" + rectangle.toString();
+		return "drawBorder" + rectangle.toString() + ";";
 	}
 
 	/**
@@ -167,8 +167,7 @@ public class GeoView {
 	public static String fillBounds(){
 		GeoView geo = GeoView.getInstance();
 		Rectangle first = new Rectangle(6.15388f, 6.15340f, 52.24966f, 52.24970f );
-		String retval = geo.addExtend(first) + ";";
-		return retval;
+		return geo.addExtend(first);
 	}
 	
 	/**

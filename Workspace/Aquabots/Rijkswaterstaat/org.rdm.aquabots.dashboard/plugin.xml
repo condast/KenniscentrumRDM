@@ -22,7 +22,11 @@
       </servlet>
       <servlet
             alias="/main/MapServlet"
-            class="org.rdm.aquabots.dashboard.servlet.MapServlet">
+            class="org.rdm.aquabots.dashboard.map.MapServlet">
+      </servlet>
+      <servlet
+            alias="/main/BoundsServlet"
+            class="org.rdm.aquabots.dashboard.servlet.BoundsServlet">
       </servlet>
       <servlet
             alias="/main/BoatServlet"

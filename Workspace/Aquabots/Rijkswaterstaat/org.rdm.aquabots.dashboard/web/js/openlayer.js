@@ -52,40 +52,27 @@ var modify = new ol.interaction.Modify({
 );
 map.addInteraction(modify);
 
-var draw; // global so we can remove it later
+//global so we can remove it later
+var draw; 
+var bBox;
 var pointDraw;
 var pointer = 0;
-
-function initInteraction() {
-	draw = addInteraction( 'LineString' );
-	draw.on('drawend', function(e) {
-		sendCoordinates( 'drawend', e );
-	});
-	draw.on('drawstart', function(e) {
-		sendCoordinates( 'drawstart', e );
-	});
-
-	pointDraw = addInteraction('Point');
-	pointDraw.on('drawend', function(e) {
-		sendCoordinates( 'drawend', e );
-	});
-}
 
 /**
  * Send the given coordinates to the servlet
  * @param coordinates
  */
-function sendCoordinates( tp, e ){
+function sendCoordinates( servlet, tp, e ){
 	var geometry = e.feature.getGeometry();
 	var coords = geometry.getCoordinates();  
 	var str = ol.proj.transform( coords, 'EPSG:3857', 'EPSG:4326');
-	$.get("MapServlet", { type: tp, style: geometry.getType(), coordinates: escape( str )}).done( function(data) {
-		  alert(data);
+	$.get( servlet, { type: tp, style: geometry.getType(), coordinates: escape( str )}).done( function(data) {
+		  //log(data);
 	});
-	console.log( tp, str );	
+	//log( tp + ":" + str );	
 }
 
-function addInteraction( tp) {
+function addDrawInteraction( tp ) {
 	var drw = new ol.interaction.Draw({
 		features: featureOverlay.getFeatures(),
 		type: (tp)
@@ -95,13 +82,59 @@ function addInteraction( tp) {
     return drw;
 }
 
+//Bounding boxes allow to select a portion of a screen. We use this to limit the
+//area the boats can travel in.
+function addExtentInteraction(){
+	var boundingBox = new ol.interaction.DragBox({
+	  condition: ol.events.condition.always,
+	  style: new ol.style.Style({
+	      stroke: new ol.style.Stroke({
+	          color: [0,0,255,1]
+	      })
+	  })
+	});
+
+	map.addInteraction(boundingBox);
+	return boundingBox;
+}
+
+/**
+ * Activate the interactions with the map
+ */
+function initInteraction() {
+	
+	//Functions needed to set coordinates for the GPS
+	draw = addDrawInteraction( 'LineString' );
+	draw.on('drawend', function(e) {
+		sendCoordinates( "MapServlet", 'drawend', e );
+	});
+	//draw.on('drawstart', function(e) {
+	//	sendCoordinates( "MapServlet",'drawstart', e );
+	//});
+
+	pointDraw = addInteraction('Point');
+	pointDraw.on('drawend', function(e) {
+		sendCoordinates( "MapServlet",'drawend', e );
+	});
+	
+	//Activate the bounds
+	bBox = addExtentInteraction();
+	bBox.on('boxend', function(e){
+		sendCoordinates("BoundsServlet",'boxend', e );
+		//map.removeInteraction(boundingBox);  
+	});	
+	bBox.on('boxstart', function(e){
+		sendCoordinates("BoundsServlet",'boxstart', e );
+	});	
+}
+
 /**
 * Let user change the geometry type.
 */
 function typeSelect( type ){
  try{
 	map.removeInteraction(draw);
-	draw = addInteraction( type );
+	draw = addDrawInteraction( type );
   }
   catch( err ){
 	  alert( err );
@@ -131,15 +164,15 @@ function zoomout(){
 } 
 
 function drawBorder( n, s, w, e ){
+	//var boxes  = ol.layer.Boxes("Boxes");
+	//var coordinates = [n, s, w, e ];
+	//var bounds = OpenLayers.Bounds.fromArray(coordinates).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+    //var box = new OpenLayers.Marker.Box(bounds);
+    //box.setBorder("blue");
+    //boxes.addMarker(box);
+    //map.addLayers([boxes]);
     alert('hoi');
-	var boxes  = new OpenLayers.Layer.Boxes("Boxes");
-    var coordinates = [n, s, w, e ];
-    var bounds = OpenLayers.Bounds.fromArray(coordinates).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
-    var box = new OpenLayers.Marker.Box(bounds);
-    alert('hoi');
-    box.setBorder("blue");
-    boxes.addMarker(box);
-    map.addLayers([boxes]);
+    log('OK');
 }
 
 //ZoomToExtent
@@ -147,5 +180,12 @@ var myExtentButton = new ol.control.ZoomToExtent({
     extent:undefined
 });
 map.addControl(myExtentButton);
+
+
+function log( msg ){
+	if ( window.console && window.console.log ) {
+		  console.log( msg );
+	}	
+}
 
 initInteraction();

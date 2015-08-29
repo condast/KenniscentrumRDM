@@ -1,4 +1,4 @@
-package org.rdm.aquabots.dashboard.servlet;
+package org.rdm.aquabots.dashboard.map;
 
 import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
 import org.rdm.aquabots.dashboard.active.boat.CurrentBoatEvent;

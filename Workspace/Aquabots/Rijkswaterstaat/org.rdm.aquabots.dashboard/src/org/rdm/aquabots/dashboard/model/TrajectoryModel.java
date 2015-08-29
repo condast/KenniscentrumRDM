@@ -229,7 +229,10 @@ public class TrajectoryModel {
 				style = WayPoint.Styles.valueOf( StringStyler.styleToEnum( entry.getValue() ));
 				break;
 			case COORDINATES:
-				coords = entry.getValue().split(",");
+				String str = entry.getValue();
+				str = str.replace("NaN,", "");
+				str = str.trim();
+				coords = str.split(",");
 				break;
 			}
 		}
