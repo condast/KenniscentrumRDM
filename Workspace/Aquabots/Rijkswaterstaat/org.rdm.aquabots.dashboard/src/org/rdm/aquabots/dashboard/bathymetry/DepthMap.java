@@ -1,7 +1,7 @@
 package org.rdm.aquabots.dashboard.bathymetry;
 
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint.Styles;
 
 public class DepthMap {
 

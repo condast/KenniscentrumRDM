@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.rdm.kc.sensornet.feature"
+      label="KC RDM Sensornet Feature"
+      version="1.0.0.qualifier"
+      provider-name="Kenniscentrum RDM">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.rap.rwt" version="2.3.0"/>
+      <import plugin="org.eclipse.core.runtime" version="3.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.http.registry"/>
+      <import plugin="org.glassfish.javax.json"/>
+      <import plugin="javax.servlet"/>
+      <import plugin="org.eclipse.equinox.security"/>
+      <import plugin="org.eclipse.rap.jface"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.osgi.services"/>
+      <import plugin="org.rdm.authentication"/>
+   </requires>
+
+   <plugin
+         id="org.rdm.kc.sensornet"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.rdm.aquabots.nmea"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

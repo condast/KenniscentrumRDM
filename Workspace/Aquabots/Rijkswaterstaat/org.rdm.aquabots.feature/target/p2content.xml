@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <units size='2'>
-  <unit id='org.rdm.aquabots.feature.feature.group' version='1.0.0.201508251055' singleton='false'>
-    <update id='org.rdm.aquabots.feature.feature.group' range='[0.0.0,1.0.0.201508251055)' severity='0'/>
+  <unit id='org.rdm.aquabots.feature.feature.group' version='1.0.0.201509041903' singleton='false'>
+    <update id='org.rdm.aquabots.feature.feature.group' range='[0.0.0,1.0.0.201509041903)' severity='0'/>
     <properties size='8'>
       <property name='org.eclipse.equinox.p2.name' value='Aquabots Feature'/>
       <property name='org.eclipse.equinox.p2.description' value='[Enter Feature Description here.]'/>
@@ -13,16 +13,17 @@
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
     </properties>
     <provides size='1'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.feature.feature.group' version='1.0.0.201508251055'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.feature.feature.group' version='1.0.0.201509041903'/>
     </provides>
-    <requires size='7'>
+    <requires size='8'>
       <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.rap.rwt' range='[2.0.0,3.0.0)'/>
       <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.equinox.http.registry' range='0.0.0'/>
       <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.rap.ui' range='0.0.0'/>
       <required namespace='org.eclipse.equinox.p2.iu' name='org.glassfish.javax.json' range='0.0.0'/>
       <required namespace='org.eclipse.equinox.p2.iu' name='javax.servlet' range='0.0.0'/>
-      <required namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.dashboard' range='[1.0.0.201508251055,1.0.0.201508251055]'/>
-      <required namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.feature.feature.jar' range='[1.0.0.201508251055,1.0.0.201508251055]'>
+      <required namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.dashboard' range='[1.0.0.201509041903,1.0.0.201509041903]'/>
+      <required namespace='org.eclipse.equinox.p2.iu' name='org.rdm.authentication' range='[1.0.0.201509041903,1.0.0.201509041903]'/>
+      <required namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.feature.feature.jar' range='[1.0.0.201509041903,1.0.0.201509041903]'>
         <filter>
           (org.eclipse.update.install.features=true)
         </filter>
@@ -38,7 +39,7 @@
       [Enter Copyright Description here.]
     </copyright>
   </unit>
-  <unit id='org.rdm.aquabots.feature.feature.jar' version='1.0.0.201508251055'>
+  <unit id='org.rdm.aquabots.feature.feature.jar' version='1.0.0.201509041903'>
     <properties size='7'>
       <property name='org.eclipse.equinox.p2.name' value='Aquabots Feature'/>
       <property name='org.eclipse.equinox.p2.description' value='[Enter Feature Description here.]'/>
@@ -49,15 +50,15 @@
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
     </properties>
     <provides size='3'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.feature.feature.jar' version='1.0.0.201508251055'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.rdm.aquabots.feature.feature.jar' version='1.0.0.201509041903'/>
       <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
-      <provided namespace='org.eclipse.update.feature' name='org.rdm.aquabots.feature' version='1.0.0.201508251055'/>
+      <provided namespace='org.eclipse.update.feature' name='org.rdm.aquabots.feature' version='1.0.0.201509041903'/>
     </provides>
     <filter>
       (org.eclipse.update.install.features=true)
     </filter>
     <artifacts size='1'>
-      <artifact classifier='org.eclipse.update.feature' id='org.rdm.aquabots.feature' version='1.0.0.201508251055'/>
+      <artifact classifier='org.eclipse.update.feature' id='org.rdm.aquabots.feature' version='1.0.0.201509041903'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>

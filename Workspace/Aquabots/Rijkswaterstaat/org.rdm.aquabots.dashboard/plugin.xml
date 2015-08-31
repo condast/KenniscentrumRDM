@@ -26,11 +26,11 @@
       </servlet>
       <servlet
             alias="/main/BoundsServlet"
-            class="org.rdm.aquabots.dashboard.servlet.BoundsServlet">
+            class="org.rdm.aquabots.dashboard.bounds.BoundsServlet">
       </servlet>
       <servlet
             alias="/main/BoatServlet"
-            class="org.rdm.aquabots.dashboard.model.boat.BoatServlet">
+            class="org.rdm.aquabots.dashboard.plan.boat.BoatServlet">
       </servlet>
    </extension>
    <extension

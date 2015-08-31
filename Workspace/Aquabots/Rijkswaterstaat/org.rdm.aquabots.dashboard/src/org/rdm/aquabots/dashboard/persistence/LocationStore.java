@@ -1,6 +1,6 @@
 package org.rdm.aquabots.dashboard.persistence;
 
-import org.rdm.aquabots.dashboard.model.GeoView;
+import org.rdm.aquabots.dashboard.map.GeoView;
 import org.rdm.aquabots.dashboard.persistence.PreferenceStore.Categories;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 

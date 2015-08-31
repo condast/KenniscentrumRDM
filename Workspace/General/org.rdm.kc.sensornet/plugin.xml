@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/main"
+            base-name="/web">
+      </resource>
+      <resource
+            alias="/resources"
+            base-name="/resources">
+      </resource>
+   </extension>
+    <extension
+         point="org.eclipse.equinox.http.registry.servlets">
+      <servlet
+            alias="/sensors/authServlet"
+            class="org.rdm.kc.sensornet.authentication.AuthenticationServlet"
+            httpcontextId="org.rdm.kc.sensornet.httpcontext"
+            load-on-startup="true">
+      </servlet>
+   </extension>
+   <extension
+          id="org.rdm.kc.sensornet.login"
+          name="Aquabots Login Module"
+          point="org.eclipse.equinox.security.loginModule">
+      <loginModule
+            class="org.rdm.kc.sensornet.authentication.RdmLoginModule"
+            description="Login module voor Aquabots">
+      </loginModule>
+   </extension>
+   <extension
+         id="org.rdm.kc.sensornet.login.callback"
+         name="CallBack Handler for Login"
+         point="org.eclipse.equinox.security.callbackHandler">
+      <callbackHandler
+            class="org.rdm.kc.sensornet.authentication.RdmCallbackHandler">
+      </callbackHandler>
+   </extension>
+   <extension
+         point="org.eclipse.equinox.security.callbackHandlerMapping">
+      <callbackHandlerMapping
+            callbackHandlerId="org.rdm.kc.sensornet.login.callback"
+            configName="KCRDM">
+      </callbackHandlerMapping>
+   </extension>
+
+</plugin>

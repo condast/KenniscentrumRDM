@@ -10,12 +10,12 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParser;
 
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
-import org.rdm.aquabots.dashboard.model.boat.Command;
-import org.rdm.aquabots.dashboard.model.boat.IBoatModel;
-import org.rdm.aquabots.dashboard.model.boat.Path;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.LonLat;
+import org.rdm.aquabots.dashboard.def.boat.IBoatModel;
+import org.rdm.aquabots.dashboard.plan.TrajectoryModel;
+import org.rdm.aquabots.dashboard.plan.boat.Command;
+import org.rdm.aquabots.dashboard.plan.boat.Path;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint.LonLat;
 
 public class JsonUtils {
 
@@ -78,17 +78,18 @@ public class JsonUtils {
 	public static JsonObject createJsonPath( TrajectoryModel trajectory ){
         if( trajectory == null )
         	return null;
-		Path path = new Path( trajectory );
+		Path path = new Path( null );
         JsonArrayBuilder waypointsBuilder = Json.createArrayBuilder();
 
-		for ( WayPoint waypoint: path.getWayPoints() ) {
+		for ( WayPoint waypoint: trajectory.getWayPoints() ) {
+			path.addWayPoint(waypoint);
 			waypointsBuilder.add( createSimpleJsonWayPoint(waypoint));
 		}
 
 		JsonObjectBuilder tBuilder = Json.createObjectBuilder();
 
 		tBuilder.add( Path.Attributes.LENGTH.toString(), path.getLength() )
-   			.add( Path.Attributes.CURRENTWP.toString(), path.getCurrentWP() )
+   			.add( Path.Attributes.CURRENTWP.toString(), path.getIndex() )
    			.add( Path.Attributes.WAYPOINTS.toString(), waypointsBuilder );
 		return tBuilder.build();
 	}
@@ -111,12 +112,15 @@ public class JsonUtils {
 		return jo.toString();
 	}
 	
-	public static String sendMessage( JsonObject jo ){
-		return "wsSend( " + jo.toString() + ")";
+	public static String sendMessage( JsonObject jo, boolean includeWSSend ){
+		String str = jo.toString();
+		if( includeWSSend )
+			str = "wsSend( " + str + ")"; 
+		return str;
 	}
 
 	public static String sendMessage( IBoatModel model ){
-		return sendMessage( createCommand( model ));
+		return sendMessage( createCommand( model ), false );
 	}
 
 	public static String toLowerCase( TrajectoryModel.Attributes attr ){

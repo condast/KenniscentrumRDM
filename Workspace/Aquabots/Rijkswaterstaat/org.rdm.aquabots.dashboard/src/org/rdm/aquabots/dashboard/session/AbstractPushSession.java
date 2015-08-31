@@ -10,28 +10,39 @@ import org.eclipse.swt.widgets.Display;
 
 public abstract class AbstractPushSession {
 
+	public static final int DEFAULT_TIMEOUT = 5000;
+	
 	private Display display;
 	
 	private ServerPushSession session;
 	private ExecutorService es;
+	private boolean refresh = false;
+	private int timeout;
 	
 	private Collection<ISessionListener> listeners;
-		
+
 	protected AbstractPushSession() {
+		this( DEFAULT_TIMEOUT );
+	}
+
+	protected AbstractPushSession( int timeout ) {
+		this.timeout = timeout;
 		listeners = new ArrayList<ISessionListener>();
 		es = Executors.newCachedThreadPool();
 	}
 
 	private Runnable runnable = new Runnable() {
 		public void run() {
-			while(!runSession()){
+			while(!refresh && !runSession()){
 				try{
-					Thread.sleep( 5000 );
+					Thread.sleep( timeout );
 				}
 				catch( InterruptedException ex ){
 					ex.printStackTrace();
 				}
 			}
+			if( display.isDisposed())
+				return;
 			display.asyncExec( new Runnable() {
 				public void run() {
 					for(ISessionListener listener: listeners)
@@ -55,20 +66,30 @@ public abstract class AbstractPushSession {
 			this.display = display;
 	}
 	
-	public void start(){
+	protected boolean isRefresh() {
+		return refresh;
+	}
+
+	protected void setRefresh(boolean refresh) {
+		this.refresh = refresh;
+	}
+
+	public synchronized void start(){
 		session = new ServerPushSession();
 		session.start();
+		this.refresh = false;
 		es.execute(runnable);
 	}
-	
+
 	/**
 	 * Run the session. returns true if the session completed succesfully.
 	 * @return
 	 */
 	protected abstract boolean runSession();
 
-	public void stop(){
+	public synchronized void stop(){
 		this.listeners.clear();
+		this.refresh = false;
 		es.shutdown();
 	}
 }

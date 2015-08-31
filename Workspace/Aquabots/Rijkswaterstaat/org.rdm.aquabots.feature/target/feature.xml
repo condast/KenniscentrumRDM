@@ -2,7 +2,7 @@
 <feature
       id="org.rdm.aquabots.feature"
       label="Aquabots Feature"
-      version="1.0.0.201508251055"
+      version="1.0.0.201509041903"
       provider-name="Kenniscentrum RDM">
 
    <description url="http://www.example.com/description">
@@ -27,9 +27,16 @@
 
    <plugin
          id="org.rdm.aquabots.dashboard"
-         download-size="177"
-         install-size="352"
-         version="1.0.0.201508251055"
+         download-size="898"
+         install-size="1452"
+         version="1.0.0.201509041903"
+         unpack="false"/>
+
+   <plugin
+         id="org.rdm.authentication"
+         download-size="20"
+         install-size="32"
+         version="1.0.0.201509041903"
          unpack="false"/>
 
 </feature>

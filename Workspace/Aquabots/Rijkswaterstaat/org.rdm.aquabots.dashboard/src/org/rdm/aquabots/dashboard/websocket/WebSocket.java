@@ -51,6 +51,14 @@ public class WebSocket {
 		BrowserUtil.evaluate(browser, str, bcb );
 	}
 
+	public void openSocket( String server, String title){
+		if( this.opened )
+			return;
+		String str = "openSocket(" +  server + ", " + title + ");";
+		this.opening = true;
+		BrowserUtil.evaluate(browser, str, bcb );
+	}
+
 	public void closeSocket(){
 		this.opened = false;
 		String str = "closeSocket();";

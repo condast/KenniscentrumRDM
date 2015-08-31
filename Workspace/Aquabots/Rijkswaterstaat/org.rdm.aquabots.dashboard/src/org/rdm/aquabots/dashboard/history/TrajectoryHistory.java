@@ -3,7 +3,7 @@ package org.rdm.aquabots.dashboard.history;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
+import org.rdm.aquabots.dashboard.plan.TrajectoryModel;
 
 public class TrajectoryHistory {
 

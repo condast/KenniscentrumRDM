@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.rdm.aquabots.feature_1.0.0.201508251055.jar" id="org.rdm.aquabots.feature" version="1.0.0.201508251055">
+   <feature url="features/org.rdm.aquabots.feature_1.0.0.201509041903.jar" id="org.rdm.aquabots.feature" version="1.0.0.201509041903">
       <category name="org.rdm.aquabots"/>
    </feature>
    <category-def name="org.rdm.aquabots" label="Kenniscentrum RDM Aquabots Update Site"/>

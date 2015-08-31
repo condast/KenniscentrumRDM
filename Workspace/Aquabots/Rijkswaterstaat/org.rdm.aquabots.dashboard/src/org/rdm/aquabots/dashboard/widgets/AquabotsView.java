@@ -21,8 +21,7 @@ import org.eclipse.swt.layout.GridData;
 import org.rdm.aquabots.dashboard.Activator;
 import org.rdm.aquabots.dashboard.authentication.RdmLoginBean;
 import org.rdm.aquabots.dashboard.map.MapComposite;
-import org.rdm.aquabots.dashboard.map.MapSession;
-import org.rdm.aquabots.dashboard.model.boat.BoatResponseView;
+import org.rdm.aquabots.dashboard.plan.boat.BoatResponseView;
 import org.rdm.aquabots.dashboard.utils.ImageResources;
 import org.rdm.aquabots.dashboard.utils.ImageResources.Images;
 import org.rdm.authentication.core.AuthenticationEvent;
@@ -48,8 +47,6 @@ public class AquabotsView extends Composite {
 	public static final String S_ERR_LOGIN2 =  "Incorrect User and/or password. Please try again.";
 
 	private static final long serialVersionUID = 1L;
-
-	private MapSession session = MapSession.getInstance();
 
 	//private Canvas bathycanvas;
 	private ToolItem tltmLogin;

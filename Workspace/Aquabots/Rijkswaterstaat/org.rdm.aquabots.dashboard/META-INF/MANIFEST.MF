@@ -11,25 +11,28 @@ Import-Package: javax.json;version="1.0.0",
  javax.json.stream;version="1.0.0",
  javax.servlet;version="2.0.0",
  javax.servlet.http;version="2.0.0",
- org.apache.commons.codec;version="[1.0.0,2.0.0)",
- org.apache.commons.codec.binary;version="[1.0.0,2.0.0)",
  org.eclipse.equinox.security.auth;version="1.0.0",
- org.eclipse.equinox.security.auth.module;version="1.0.0",
- org.eclipse.jface,
+ org.eclipse.jface.dialogs,
  org.eclipse.jface.resource,
+ org.eclipse.jface.window,
  org.eclipse.rap.rwt;version="2.3.0",
  org.eclipse.rap.rwt.application;version="2.3.0",
  org.eclipse.rap.rwt.client;version="2.3.0",
  org.eclipse.rap.rwt.service;version="2.3.0",
  org.eclipse.rap.rwt.widgets;version="2.3.0",
+ org.eclipse.swt,
+ org.eclipse.swt.browser,
+ org.eclipse.swt.custom,
+ org.eclipse.swt.events,
+ org.eclipse.swt.graphics,
+ org.eclipse.swt.layout,
+ org.eclipse.swt.widgets,
  org.osgi.service.http;version="1.0.0",
  org.rdm.authentication.core
 Bundle-ClassPath: .
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.0.0",
- org.eclipse.rap.ui;bundle-version="2.3.0",
- org.eclipse.rap.jface,
- org.eclipse.osgi
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.0.0"
 Bundle-ActivationPolicy: lazy
 DynamicImport-Package: *
 Bundle-Activator: org.rdm.aquabots.dashboard.Activator
-Export-Package: org.rdm.aquabots.dashboard.authentication
+Export-Package: org.rdm.aquabots.dashboard.authentication,
+ org.rdm.aquabots.dashboard.plan.boat

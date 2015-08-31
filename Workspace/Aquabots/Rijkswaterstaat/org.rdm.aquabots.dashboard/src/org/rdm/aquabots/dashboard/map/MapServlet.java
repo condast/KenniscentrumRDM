@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Append;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel.Parameters;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.plan.TrajectoryModel.Append;
+import org.rdm.aquabots.dashboard.plan.TrajectoryModel.Parameters;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class MapServlet extends HttpServlet {
@@ -45,7 +45,8 @@ public class MapServlet extends HttpServlet {
 		Map<String, String> map = new HashMap<String, String>();
 		while( attrs.hasMoreElements()){
 			String attr = attrs.nextElement();
-			map.put( attr, URLDecoder.decode( req.getParameter(attr), "UTF-8"));
+			String val = req.getParameter(attr);
+			map.put( attr, URLDecoder.decode( val, "UTF-8"));
 		}
 		logger.info("DO GET " + map.toString());
 		for( WayPoint waypoint: model.getModel().getTrajectory().createWayPoints( map, Append.LAST )){

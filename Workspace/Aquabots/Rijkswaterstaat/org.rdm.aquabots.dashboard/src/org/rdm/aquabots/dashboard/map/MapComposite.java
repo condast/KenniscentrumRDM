@@ -26,11 +26,10 @@ import org.rdm.aquabots.dashboard.active.boat.CurrentBoat;
 import org.rdm.aquabots.dashboard.active.boat.CurrentBoatEvent;
 import org.rdm.aquabots.dashboard.active.boat.ICurrentBoatListener;
 import org.rdm.aquabots.dashboard.json.JsonUtils;
-import org.rdm.aquabots.dashboard.model.GeoView;
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.Styles;
 import org.rdm.aquabots.dashboard.persistence.LocationStore;
+import org.rdm.aquabots.dashboard.plan.TrajectoryModel;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint.Styles;
 import org.rdm.aquabots.dashboard.session.ISessionListener;
 import org.rdm.aquabots.dashboard.session.SessionEvent;
 import org.rdm.aquabots.dashboard.utils.ImageResources;
@@ -82,7 +81,11 @@ public class MapComposite extends Composite {
 
 		@Override
 		public void notifyStatusChanged(CurrentBoatEvent event) {
+			if( !CurrentBoatEvents.TRAJECTORY_CHANGE.equals( event.getEvent() ))
+				return;
 			if(( display == null ) || ( display.isDisposed()))
+				return;
+			if( event.getWayPoint() == null )
 				return;
 			if( !Styles.POINT.equals( event.getWayPoint().getStyle()))
 				return;
@@ -117,9 +120,10 @@ public class MapComposite extends Composite {
 		super(parent, style);
 		store = new LocationStore();
 		GeoView.getInstance().jump();
-		this.model.init();
 		this.model.addListener(listener);
+		model.getModel().getTrajectory().reset();
 		this.createComposite(parent, style);
+		
 		this.session.addSessionListener(sl);
 		this.session.init( Display.getDefault());
 		this.session.start();
@@ -324,10 +328,10 @@ public class MapComposite extends Composite {
 		Group grpDraw = new Group(composite_4, SWT.NONE);
 		grpDraw.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1));
 		grpDraw.setText( S_BOAT );
-		grpDraw.setLayout(new GridLayout(3, false));
+		grpDraw.setLayout(new GridLayout(4, false));
 
 		boatsCombo = new CCombo(grpDraw, SWT.BORDER);
-		boatsCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
+		boatsCombo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 4, 1));
 		boatsCombo.setItems( model.getNames() );
 		boatsCombo.select(0);
 		boatsCombo.addSelectionListener( new SelectionListener(){
@@ -345,7 +349,7 @@ public class MapComposite extends Composite {
 		});
 
 		list = new List(grpDraw, SWT.BORDER | SWT.MULTI);
-		list.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		list.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 4, 1));
 		display = list.getDisplay();
 
 		btnExecute = new Button(grpDraw, SWT.NONE);
@@ -381,6 +385,19 @@ public class MapComposite extends Composite {
 
 		Button btnStopoverride = new Button(grpDraw, SWT.NONE);
 		btnStopoverride.setText("Stop");
+		
+		Button btnClear = new Button(grpDraw, SWT.NONE);
+		btnClear.addSelectionListener(new SelectionAdapter() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				list.removeAll();
+				model.getModel().getTrajectory().reset();
+				btnExecute.setEnabled( false );
+			}
+		});
+		btnClear.setText("Clear");
 		btnStopoverride.addSelectionListener(new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
 
@@ -408,8 +425,6 @@ public class MapComposite extends Composite {
 
 			@Override
 			public void run() {
-				if( list == null )
-					return;
 				try{
 					list.removeAll();
 					TrajectoryModel trajectory = model.getModel().getTrajectory(); 

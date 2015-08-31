@@ -12,10 +12,12 @@ import java.util.Scanner;
 import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 
-import org.rdm.aquabots.dashboard.model.ITrajectoryListener;
-import org.rdm.aquabots.dashboard.model.TrajectoryEvent;
-import org.rdm.aquabots.dashboard.model.boat.BoatModel;
-import org.rdm.aquabots.dashboard.model.boat.IBoatModel;
+import org.rdm.aquabots.dashboard.active.boat.ICurrentBoatListener.CurrentBoatEvents;
+import org.rdm.aquabots.dashboard.def.boat.IBoatModel;
+import org.rdm.aquabots.dashboard.plan.ITrajectoryListener;
+import org.rdm.aquabots.dashboard.plan.TrajectoryEvent;
+import org.rdm.aquabots.dashboard.plan.boat.BoatModel;
+import org.rdm.aquabots.dashboard.plan.boat.StatusModel;
 import org.rdm.aquabots.dashboard.utils.IOUtils;
 
 /**
@@ -39,7 +41,7 @@ public class CurrentBoat {
 		
 		@Override
 		public void notifyTrajectoryChanged(TrajectoryEvent event) {
-			notifyListeners( new CurrentBoatEvent( this, event.getWayPoint()));
+			notifyListeners( new CurrentBoatEvent( CurrentBoatEvents.TRAJECTORY_CHANGE, this, event.getWayPoint()));
 		}
 	};
 	
@@ -47,13 +49,14 @@ public class CurrentBoat {
 		super();
 		models = new HashMap<String, IBoatModel>();
 		listeners = new ArrayList<ICurrentBoatListener>();
+		this.init();
 	}
 	
 	public static CurrentBoat getInstance(){
 		return current;
 	}
 
-	public void init() {
+	protected void init() {
 		models.clear();
 		URL url = CurrentBoat.class.getResource( S_BOATS_CONFIG );
 		try {
@@ -76,7 +79,20 @@ public class CurrentBoat {
 		for( ICurrentBoatListener listener: this.listeners )
 			listener.notifyStatusChanged(event);
 	}
-	
+
+	/**
+	 * Get the model for the given name
+	 * @param name
+	 * @return
+	 */
+	public void setStatus( String name, StatusModel model ){
+		IBoatModel bm = models.get( name );
+		if( bm == null )
+			return;
+		bm.setStatus(model);
+		this.notifyListeners( new CurrentBoatEvent(CurrentBoatEvents.SET_MODEL, this));
+	}
+
 	public IBoatModel getModel(){
 		return switchBoat( currentBoat );
 	}

@@ -8,16 +8,17 @@ import org.rdm.aquabots.dashboard.session.AbstractPushSession;
 public class MapSession extends AbstractPushSession {
 
 	private CurrentBoat model;
-	private boolean refresh = false;
 	private ICurrentBoatListener listener = new ICurrentBoatListener() {
 
 		@Override
 		public void notifyStatusChanged(CurrentBoatEvent event) {
-			Thread.interrupted();
-			refresh = true;
+			if( CurrentBoatEvents.TRAJECTORY_CHANGE.equals( event.getEvent() )){
+				setRefresh( true );
+				Thread.interrupted();
+			}
 		}
 	};
-	
+
 	private static MapSession session = new MapSession();
 		
 	public static MapSession getInstance(){
@@ -29,24 +30,13 @@ public class MapSession extends AbstractPushSession {
 		this.model.addListener(listener);
 	}
 
-
 	@Override
 	protected boolean runSession() {
-		if( this.model == null )
-			return false;
-		return this.refresh;
-	}
-
-	
-	@Override
-	public void start() {
-		this.refresh = false;
-		super.start();
+		return ( this.model != null );
 	}
 
 	@Override
 	public void stop() {
-		this.refresh = false;
 		if( this.model != null )
 			this.model.removeListener(listener);
 		super.stop();

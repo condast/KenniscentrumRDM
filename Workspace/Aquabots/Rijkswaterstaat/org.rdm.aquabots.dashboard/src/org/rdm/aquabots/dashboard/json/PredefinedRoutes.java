@@ -7,12 +7,12 @@ import javax.json.Json;
 import javax.json.JsonException;
 import javax.json.stream.JsonParser;
 
-import org.rdm.aquabots.dashboard.model.TrajectoryModel;
-import org.rdm.aquabots.dashboard.model.boat.BoatModel;
-import org.rdm.aquabots.dashboard.model.boat.IBoatModel;
-import org.rdm.aquabots.dashboard.model.boat.Path;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint;
-import org.rdm.aquabots.dashboard.model.waypoint.WayPoint.LonLat;
+import org.rdm.aquabots.dashboard.def.boat.IBoatModel;
+import org.rdm.aquabots.dashboard.plan.TrajectoryModel;
+import org.rdm.aquabots.dashboard.plan.boat.BoatModel;
+import org.rdm.aquabots.dashboard.plan.boat.Path;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint;
+import org.rdm.aquabots.dashboard.plan.waypoint.WayPoint.LonLat;
 import org.rdm.aquabots.dashboard.utils.StringStyler;
 
 public class PredefinedRoutes {
